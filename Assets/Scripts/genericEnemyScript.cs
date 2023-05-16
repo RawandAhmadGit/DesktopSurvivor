@@ -93,8 +93,8 @@ public class genericEnemyScript : MonoBehaviour
             if (collision.gameObject.tag == "playerAttack") //if the collided object has the tag playerAttack, do damage taking stuff
             {
                 //the following code won't compile unless the script "player Attack" has been created. TODO
-                //float incomingDamage = collision.gameObject.GetComponent<playerAttack>().strength;
-                //takeDamage(incomingDamage);
+                //takeDamage(collision.gameObject.GetComponent<playerAttack>().strength;);
+                //takeKnockback(collision.gameObject.GetComponent<playerAttack>().knockback);
             }
         }
     }
@@ -105,8 +105,16 @@ public class genericEnemyScript : MonoBehaviour
         if (_currentHP < 0)
         {
             _currentHP = 0;
-            _isDead = true;
+            die();
         }
 
+    }
+    private void die()
+    {
+        //TODO
+    }
+    private void takeKnockback(float incomingKnockback)
+    {
+        //TODO
     }
 }
