@@ -32,14 +32,15 @@ public class genericEnemyScript : MonoBehaviour
     public GameObject thePlayer;
     private float speed = 1f;
     private enemyType _type = enemyType.undefined;
-    private float _maxHP = 1;
-    private float _currentHP  = 1; //just to make sure they dont perish on frame 1
+    private float _maxHP = 40;
+    private float _currentHP = 40;
     private float _missingHP() { return _maxHP - _currentHP; }
     public float percentageHP() { return _currentHP / _maxHP; }
-    private float _attackStrength { get; }
+    private float _attackStrength = 8;
     private float _attackCooldown;
-
-    
+    private float _expYield = 2;
+    private float _knockbackMultiplier = 1;
+    private bool _isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,20 +55,58 @@ public class genericEnemyScript : MonoBehaviour
         Vector3 connectionLine = target - gameObject.transform.position;
         connectionLine.Normalize();
         connectionLine.Scale(new Vector3(Time.deltaTime * speed, Time.deltaTime * speed, Time.deltaTime * speed));
+        if (_isDead) connectionLine *= -1; //if the enemy is dead, they move away from the player instead
         gameObject.transform.Translate(connectionLine);
-        
-        //TODO check collision with a projectile
+        if (_isDead)
+        {
+            //any updates that have to be done while the enemy is dead but not yet deleted (aka death animation)
+        } 
+        else
+        {
 
-        //TODO perish
 
+            //TODO perish
+
+        }
     }
 
-    void defineType(enemyType newType, bool isBoss)
+    void defineEnemyType(enemyType newType, bool isBoss)
     {
-        _type = newType;
-        this._maxHP = 20;
-        if (isBoss)_maxHP *= 10;
+        _type = newType; //currently not doing anything :( TODO
+        _maxHP = 20;
+        if (isBoss) _maxHP *= 10;
         _currentHP = _maxHP;
+        _attackStrength = 8;
+        if (isBoss) _attackStrength *= 2;
+        speed = 1;
+        _expYield = 2;
+        if (isBoss) _expYield *= 20;
+        _knockbackMultiplier = 1;
+        if (isBoss) _knockbackMultiplier /= 2;
         //TODO
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_isDead) return;
+        {
+            if (collision.gameObject.tag == "playerAttack") //if the collided object has the tag playerAttack, do damage taking stuff
+            {
+                //the following code won't compile unless the script "player Attack" has been created. TODO
+                //float incomingDamage = collision.gameObject.GetComponent<playerAttack>().strength;
+                //takeDamage(incomingDamage);
+            }
+        }
+    }
+
+    private void takeDamage(float incomingDamage)
+    {
+        this._currentHP -=     incomingDamage;
+        if (_currentHP < 0)
+        {
+            _currentHP = 0;
+            _isDead = true;
+        }
+
     }
 }
