@@ -1,29 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class enemySpawner : MonoBehaviour
 {
     public float timeSinceLastSpawn = 0f;
-    public Object toBeSpawned;
-    // Start is called before the first frame update
+    public GameObject toBeSpawned;
+
+    private bool isSpawningEnabled = true;
+
     void Start()
     {
-        
+        // Assign the prefab manually
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (timeSinceLastSpawn >= 4f)
+        if (isSpawningEnabled)
         {
-            Instantiate(toBeSpawned,new Vector3(Random.Range(-3,3),Random.Range(-3,3),0),Quaternion.identity);
-            timeSinceLastSpawn = 0f;
+            if (timeSinceLastSpawn >= 4f)
+            {
+                Instantiate(toBeSpawned, new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0), Quaternion.identity);
+                timeSinceLastSpawn = 0f;
+            }
+            else
+            {
+                timeSinceLastSpawn += Time.deltaTime;
+            }
         }
-        else
-        {
-            timeSinceLastSpawn += Time.deltaTime;
-        }
+    }
+
+    public void EnableSpawning()
+    {
+        isSpawningEnabled = true;
+    }
+
+    public void DisableSpawning()
+    {
+        isSpawningEnabled = false;
     }
 }
