@@ -27,7 +27,7 @@ enum enemyType
 };
 
 
-public class genericEnemyScript : MonoBehaviour
+public class GenericEnemy : MonoBehaviour
 {
     public GameObject thePlayer;
     private float speed = 1f;
