@@ -99,6 +99,16 @@ public class GenericEnemy : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        print("Ayo, I collide");
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            Vector3 otherDude = collision.transform.position;
+            gameObject.transform.Translate((gameObject.transform.position - otherDude).normalized * Time.deltaTime * 2);
+        }
+    }
+
     private void takeDamage(float incomingDamage)
     {
         this._currentHP -=     incomingDamage;

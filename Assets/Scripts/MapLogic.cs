@@ -19,13 +19,13 @@ public class MapLogic : MonoBehaviour
             if (timeUntilNextSpawn <=  0)
             {
                 const float spawnRadius = 10;
-                Vector3 newEnemyPos = (Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * Time.deltaTime * spawnRadius;
+                Vector3 newEnemyPos = (Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius;
                 Instantiate(toBeSpawned, newEnemyPos, Quaternion.identity);
                 timeUntilNextSpawn = 4f;
             }
             else
             {
-                timeUntilNextSpawn += Time.deltaTime;
+                timeUntilNextSpawn -= Time.deltaTime;
             }
         }
     }
