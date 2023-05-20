@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,7 @@ public class GenericEnemy : MonoBehaviour
     private float _missingHP() { return _maxHP - _currentHP; }
     public float percentageHP() { return _currentHP / _maxHP; }
     private float _attackStrength = 8;
+    public  float getAttackStrength() { return _attackStrength; }
     private float _attackCooldown;
     private float _expYield = 2;
     private float _knockbackMultiplier = 1;
@@ -63,7 +65,7 @@ public class GenericEnemy : MonoBehaviour
         } 
         else
         {
-
+            _attackCooldown -= Time.deltaTime;
 
             //TODO perish
 
@@ -89,26 +91,25 @@ public class GenericEnemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (_isDead) return;
-        {
-            if (collision.gameObject.tag == "playerAttack") //if the collided object has the tag playerAttack, do damage taking stuff
+
+        if (collision.gameObject.CompareTag("playerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
             {
                 //the following code won't compile unless the script "player Attack" has been created. TODO
                 //takeDamage(collision.gameObject.GetComponent<playerAttack>().strength;);
                 //takeKnockback(collision.gameObject.GetComponent<playerAttack>().knockback);
             }
-        }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        print("Ayo, I collide");
         if (collision.gameObject.CompareTag("enemy"))
         {
             Vector3 otherDude = collision.transform.position;
             gameObject.transform.Translate((gameObject.transform.position - otherDude).normalized * Time.deltaTime * 2);
         }
     }
-
+   
+    
     private void takeDamage(float incomingDamage)
     {
         this._currentHP -=     incomingDamage;
@@ -126,5 +127,15 @@ public class GenericEnemy : MonoBehaviour
     private void takeKnockback(float incomingKnockback)
     {
         //TODO
+    }
+
+    public void meleeAttack()
+    {
+        this._attackCooldown = 1;
+    }
+
+    public bool canAttack(playerScript playerScript)
+    {
+        return this._attackCooldown <= 0;
     }
 }

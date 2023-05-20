@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45aea642d2e354a458239ef61effec97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSinceLastSpawn: 0
+  timeUntilNextSpawn: 0
   toBeSpawned: {fileID: 4187038594126883120, guid: c6d80967c8957cd46ad6b17456cc90ed, type: 3}
 --- !u!4 &544409984
 Transform:
@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: 1084803039}
   - component: {fileID: 1084803038}
   - component: {fileID: 1084803041}
+  - component: {fileID: 1084803042}
   m_Layer: 0
   m_Name: Square
   m_TagString: Player
@@ -472,6 +473,22 @@ MonoBehaviour:
   isInvulnerable: 0
   isAlive: 0
   hpCounterText: {fileID: 1891925577}
+--- !u!58 &1084803042
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084803037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.475
 --- !u!1 &1891925574
 GameObject:
   m_ObjectHideFlags: 0
