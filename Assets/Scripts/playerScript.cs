@@ -73,10 +73,10 @@ public class playerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             GenericEnemy genericEnemy = collision.gameObject.GetComponent<GenericEnemy>();
-            if (genericEnemy.canAttack(this))
+            if (genericEnemy.CanAttack(this))
             {
-                genericEnemy.meleeAttack();
-                this.takeDamage(genericEnemy.getAttackStrength());
+                genericEnemy.MeleeAttack();
+                this.takeDamage(genericEnemy.GetAttackStrength());
             }
         }
     }
