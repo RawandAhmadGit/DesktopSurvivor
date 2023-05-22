@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-enum enemyType
+public enum EnemyType
 {
     //fill this with all kinds of enemies
     undefined = 0,
@@ -30,19 +30,20 @@ enum enemyType
 
 public class GenericEnemy : MonoBehaviour
 {
-    public GameObject thePlayer;
+    private GameObject thePlayer;
     private float speed = 1f;
-    private enemyType _type = enemyType.undefined;
+    private EnemyType _type = EnemyType.undefined;
     private float _maxHP = 40;
     private float _currentHP = 40;
-    private float _missingHP() { return _maxHP - _currentHP; }
-    public float percentageHP() { return _currentHP / _maxHP; }
+    private float MissingHP() { return _maxHP - _currentHP; }
+    public float PercentageHP() { return _currentHP / _maxHP; }
     private float _attackStrength = 8;
-    public  float getAttackStrength() { return _attackStrength; }
+    public  float GetAttackStrength() { return _attackStrength; }
     private float _attackCooldown;
     private float _expYield = 2;
     private float _knockbackMultiplier = 1;
     private bool _isDead = false;
+    public AnimationClip[] clips = new AnimationClip[20];
 
     
     // Start is called before the first frame update
@@ -73,8 +74,12 @@ public class GenericEnemy : MonoBehaviour
         }
     }
 
-    void defineEnemyType(enemyType newType, bool isBoss)
+    public void defineEnemyType(EnemyType newType, bool isBoss)
     {
+        if (newType > EnemyType.worm1)
+        {
+            gameObject.GetComponent<Animator>().Play("Worm2");
+        }
         _type = newType; //currently not doing anything :( TODO
         _maxHP = 20;
         if (isBoss) _maxHP *= 10;
@@ -125,17 +130,17 @@ public class GenericEnemy : MonoBehaviour
     {
         //TODO
     }
-    private void takeKnockback(float incomingKnockback)
+    private void TakeKnockback(float incomingKnockback)
     {
         //TODO
     }
 
-    public void meleeAttack()
+    public void MeleeAttack()
     {
         this._attackCooldown = 1;
     }
 
-    public bool canAttack(playerScript playerScript)
+    public bool CanAttack(playerScript playerScript)
     {
         return this._attackCooldown <= 0;
     }
