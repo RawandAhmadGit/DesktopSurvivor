@@ -9,6 +9,7 @@ public class AutoWeapon : MonoBehaviour
     public float projectileSpeed = 10f; // Speed of the projectile
 
     private float fireTimer = 0f; // Timer to track the time between each fire
+    private playerAttack attack;
 
     private void Update()
     {

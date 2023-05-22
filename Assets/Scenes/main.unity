@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 94143755}
   - component: {fileID: 94143754}
+  - component: {fileID: 94143757}
   - component: {fileID: 94143753}
-  - component: {fileID: 94143752}
+  - component: {fileID: 94143756}
   - component: {fileID: 94143750}
   m_Layer: 0
   m_Name: Player
@@ -159,24 +160,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &94143752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94143749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f4b2ba92256a394fa8d59fad590dbb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invulnerableTime: 1
-  maxHealth: 3
-  currentHealth: 0
-  isInvulnerable: 0
-  isAlive: 0
-  hpCounterText: {fileID: 0}
 --- !u!114 &94143753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +174,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeedStatMultiplier: 1
   debuffMoveSpeedMultiplier: 1
+  knockbackStrength: 0
+  attackStrength: 0
+  attackMultiplier: 0
+  attackspeedModifier: 0
+  projectilespeedModifier: 0
+  projectilesizeModifier: 0
+  projectilecountModifier: 0
+  critRate: 0
+  critDamage: 0
 --- !u!212 &94143754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -258,6 +250,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &94143756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94143749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d122e53a17c678b438a656243103d4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackStrength: 1
+  knockbackStrength: 0
+  hitEnemies: []
+--- !u!114 &94143757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94143749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7007f349220b54cbddc0bfecd74dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 2035943001072823696, guid: b943ed43235da3246ae346a3f37926eb, type: 3}
+  fireRate: 0.5
+  projectileSpeed: 10
 --- !u!1 &1186906134
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +376,7 @@ GameObject:
   - component: {fileID: 1221916102}
   m_Layer: 0
   m_Name: spawner
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -34,7 +34,7 @@ public class GenericEnemy : MonoBehaviour
     private float speed = 1f;
     private EnemyType _type = EnemyType.undefined;
     private float _maxHP = 40;
-    private float _currentHP = 40;
+    public float _currentHP = 40;
     private float MissingHP() { return _maxHP - _currentHP; }
     public float PercentageHP() { return _currentHP / _maxHP; }
     private float _attackStrength = 8;
@@ -95,7 +95,7 @@ public class GenericEnemy : MonoBehaviour
         //TODO
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_isDead) return;
 

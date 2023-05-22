@@ -9,11 +9,16 @@ public class playerAttack : MonoBehaviour
     private playerScript player; // Reference to the playerScript
     public float attackStrength;
     public float knockbackStrength;
+    public List<GenericEnemy> hitEnemies;
 
     private void Start()
     {
         // Get the playerScript component from the player object
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerScript>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
+        hitEnemies.Add(collision.gameObject.GetComponent<GenericEnemy>());
     }
 
     private void HitEnemy()
