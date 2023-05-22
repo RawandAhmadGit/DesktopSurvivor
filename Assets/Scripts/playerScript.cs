@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
+using System;
 
 public class playerScript : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class playerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();   
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -27,7 +28,8 @@ public class playerScript : MonoBehaviour
     {
         _frameAccel = Vector2.zero;
 
-        if (Input.GetKey(KeyCode.W)){
+        if (Input.GetKey(KeyCode.W))
+        {
             _frameAccel.y += effectiveSpeed() * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
@@ -64,5 +66,24 @@ public class playerScript : MonoBehaviour
         }
 
         gameObject.transform.Translate(_frameAccel);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            GenericEnemy genericEnemy = collision.gameObject.GetComponent<GenericEnemy>();
+            if (genericEnemy.canAttack(this))
+            {
+                genericEnemy.meleeAttack();
+                this.takeDamage(genericEnemy.getAttackStrength());
+            }
+        }
+    }
+
+    private void takeDamage(float value)
+    {
+        print("ouch!");
+        //TODO
     }
 }

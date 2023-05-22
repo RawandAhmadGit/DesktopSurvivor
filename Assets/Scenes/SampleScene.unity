@@ -325,6 +325,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
+=======
+--- !u!114 &544409983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544409982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45aea642d2e354a458239ef61effec97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeUntilNextSpawn: 0
+  toBeSpawned: {fileID: 4187038594126883120, guid: c6d80967c8957cd46ad6b17456cc90ed, type: 3}
+>>>>>>> 3ee09344b1180c9f41cad1c653c30381596208db
 --- !u!4 &544409984
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +388,7 @@ GameObject:
   - component: {fileID: 1084803039}
   - component: {fileID: 1084803038}
   - component: {fileID: 1084803041}
+  - component: {fileID: 1084803042}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -477,12 +495,18 @@ MonoBehaviour:
   isInvulnerable: 0
   isAlive: 0
   hpCounterText: {fileID: 1891925577}
+<<<<<<< HEAD
 --- !u!1 &1248337077
 GameObject:
+=======
+--- !u!58 &1084803042
+CircleCollider2D:
+>>>>>>> 3ee09344b1180c9f41cad1c653c30381596208db
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248337079}
@@ -608,6 +632,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_GameObject: {fileID: 1084803037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.475
+>>>>>>> 3ee09344b1180c9f41cad1c653c30381596208db
 --- !u!1 &1891925574
 GameObject:
   m_ObjectHideFlags: 0

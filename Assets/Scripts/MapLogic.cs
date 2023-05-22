@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class enemySpawner : MonoBehaviour
+public class MapLogic : MonoBehaviour
 {
-    public float timeSinceLastSpawn = 0f;
+    public float timeUntilNextSpawn = 0f;
     public GameObject toBeSpawned;
 
     private bool isSpawningEnabled = true;
@@ -16,14 +16,16 @@ public class enemySpawner : MonoBehaviour
     {
         if (isSpawningEnabled)
         {
-            if (timeSinceLastSpawn >= 4f)
+            if (timeUntilNextSpawn <=  0)
             {
-                Instantiate(toBeSpawned, new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0), Quaternion.identity);
-                timeSinceLastSpawn = 0f;
+                const float spawnRadius = 10;
+                Vector3 newEnemyPos = (Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius;
+                Instantiate(toBeSpawned, newEnemyPos, Quaternion.identity);
+                timeUntilNextSpawn = 4f;
             }
             else
             {
-                timeSinceLastSpawn += Time.deltaTime;
+                timeUntilNextSpawn -= Time.deltaTime;
             }
         }
     }
