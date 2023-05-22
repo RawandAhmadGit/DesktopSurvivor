@@ -10,7 +10,6 @@ public class playerScript : MonoBehaviour
     public float moveSpeedStatMultiplier = 1f;
     public float debuffMoveSpeedMultiplier = 1f;
     public const float minimumSpeed = 1f;
-    private float effectiveSpeed();
     public float knockbackStrength;
     public float attackStrength;
     public float attackMultiplier;
@@ -21,7 +20,7 @@ public class playerScript : MonoBehaviour
     public float critRate;
     public float critDamage;
 
-
+    private float EffectiveSpeed()
     {
         return math.max(baseMoveSpeed * moveSpeedStatMultiplier * debuffMoveSpeedMultiplier, minimumSpeed);
     }
@@ -41,22 +40,22 @@ public class playerScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            _frameAccel.y += effectiveSpeed() * Time.deltaTime;
+            _frameAccel.y += EffectiveSpeed() * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            _frameAccel.y -= effectiveSpeed() * Time.deltaTime;
+            _frameAccel.y -= EffectiveSpeed() * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            _frameAccel.x += effectiveSpeed() * Time.deltaTime;
+            _frameAccel.x += EffectiveSpeed() * Time.deltaTime;
             _spriteRenderer.flipX = false; // face right
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            _frameAccel.x -= effectiveSpeed() * Time.deltaTime;
+            _frameAccel.x -= EffectiveSpeed() * Time.deltaTime;
             _spriteRenderer.flipX = true; // face left
         }
 
@@ -65,7 +64,7 @@ public class playerScript : MonoBehaviour
         if (controllerInput.magnitude > 0.1f)
         {
             Vector2 inputDirection = controllerInput.normalized;
-            _frameAccel = inputDirection * effectiveSpeed() * Time.deltaTime;
+            _frameAccel = inputDirection * EffectiveSpeed() * Time.deltaTime;
             if (controllerInput.x > 0)
             {
                 _spriteRenderer.flipX = false;

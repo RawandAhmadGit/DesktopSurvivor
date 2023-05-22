@@ -7,6 +7,8 @@ public class playerAttack : MonoBehaviour
 {
 
     private playerScript player; // Reference to the playerScript
+    public float attackStrength;
+    public float knockbackStrength;
 
     private void Start()
     {
