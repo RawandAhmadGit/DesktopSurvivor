@@ -70,7 +70,7 @@ public class playerScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             GenericEnemy genericEnemy = collision.gameObject.GetComponent<GenericEnemy>();
             if (genericEnemy.canAttack(this))
