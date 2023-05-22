@@ -1,0 +1,7 @@
+Enemy,HP,Attack,Speed,Knockback,XP Yield
+Virus,1,1,1,1,1
+Worm,1,1,0.8125,0.8125,1
+Bacteria,0.75,1,1.25,1,1
+LoveLetter,1.25,1,0.8125,1,1
+Skull,1,1,4,2,1
+Trojan,2,1,1,0.5,2
