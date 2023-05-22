@@ -10,7 +10,18 @@ public class playerScript : MonoBehaviour
     public float moveSpeedStatMultiplier = 1f;
     public float debuffMoveSpeedMultiplier = 1f;
     public const float minimumSpeed = 1f;
-    private float effectiveSpeed()
+    private float effectiveSpeed();
+    public float knockbackStrength;
+    public float attackStrength;
+    public float attackMultiplier;
+    public float attackspeedModifier;
+    public float projectilespeedModifier;
+    public float projectilesizeModifier;
+    public float projectilecountModifier;
+    public float critRate;
+    public float critDamage;
+
+
     {
         return math.max(baseMoveSpeed * moveSpeedStatMultiplier * debuffMoveSpeedMultiplier, minimumSpeed);
     }
@@ -73,17 +84,10 @@ public class playerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             GenericEnemy genericEnemy = collision.gameObject.GetComponent<GenericEnemy>();
-<<<<<<< HEAD
-            if (genericEnemy.canAttack(this))
-            { 
-                genericEnemy.meleeAttack();
-                this.takeDamage(genericEnemy.getAttackStrength());
-=======
             if (genericEnemy.CanAttack(this))
             {
                 genericEnemy.MeleeAttack();
                 this.takeDamage(genericEnemy.GetAttackStrength());
->>>>>>> 18f7f1c7b459bfaadcea5a5b8baa72349dc9a524
             }
         }
     }

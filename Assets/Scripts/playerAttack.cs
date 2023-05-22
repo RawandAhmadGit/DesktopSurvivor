@@ -1,16 +1,10 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerAttack : MonoBehaviour
 {
-    public float knockbackStrength;
-    public float attackStrength;
-    public float attackMultiplier;
-    public float attackspeedModifier;
-    public float projectilespeedModifier;
-    public float projectilesizeModifier;
-    public float projectilecountModifier;
-    public float critRate;
-    public float critDamage;
 
     private playerScript player; // Reference to the playerScript
 
@@ -18,19 +12,6 @@ public class playerAttack : MonoBehaviour
     {
         // Get the playerScript component from the player object
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerScript>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        GenericEnemy enemy = collision.GetComponent<GenericEnemy>();
-
-        if (enemy != null && !enemy.HasBeenHitByWeapon(this))
-        {
-            enemy.takeKnockback(knockbackStrength);
-            enemy.takeDamage(attackStrength);
-            enemy.RegisterHitByWeapon(this);
-            HitEnemy();
-        }
     }
 
     private void HitEnemy()
@@ -43,7 +24,7 @@ public class playerAttack : MonoBehaviour
         if (player != null)
         {
             // Example: Increase player's attackMultiplier
-            player.IncreaseAttackMultiplier(attackMultiplier);
+            // player.IncreaseAttackMultiplier(attackMultiplier);
         }
     }
 }

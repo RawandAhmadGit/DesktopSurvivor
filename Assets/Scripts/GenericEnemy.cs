@@ -44,6 +44,7 @@ public class GenericEnemy : MonoBehaviour
     private float _knockbackMultiplier = 1;
     private bool _isDead = false;
     public AnimationClip[] clips = new AnimationClip[20];
+    private bool hasBeenHit = false;
 
     
     // Start is called before the first frame update
@@ -101,8 +102,8 @@ public class GenericEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
             {
                 //the following code won't compile unless the script "player Attack" has been created. TODO
-                takeDamage(collision.gameObject.GetComponent<playerAttack>().strength);
-                takeKnockback(collision.gameObject.GetComponent<playerAttack>().knockback);
+                TakeDamage(collision.gameObject.GetComponent<playerAttack>().attackStrength);
+                TakeKnockback(collision.gameObject.GetComponent<playerAttack>().knockbackStrength);
             }
     }
 
@@ -116,7 +117,7 @@ public class GenericEnemy : MonoBehaviour
     }
    
     
-    private void takeDamage(float incomingDamage)
+    private void TakeDamage(float incomingDamage)
     {
         this._currentHP -=     incomingDamage;
         if (_currentHP < 0)
@@ -143,5 +144,15 @@ public class GenericEnemy : MonoBehaviour
     public bool CanAttack(playerScript playerScript)
     {
         return this._attackCooldown <= 0;
+    }
+
+    public bool HasBeenHitByWeapon()
+    {
+        return hasBeenHit;
+    }
+
+    public void RegisterHitByWeapon()
+    {
+        hasBeenHit = true;
     }
 }
