@@ -44,6 +44,7 @@ public class GenericEnemy : MonoBehaviour
     private float _knockbackMultiplier = 1;
     private bool _isDead = false;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -92,17 +93,17 @@ public class GenericEnemy : MonoBehaviour
     {
         if (_isDead) return;
 
-        if (collision.gameObject.CompareTag("playerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
+        if (collision.gameObject.CompareTag("PlayerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
             {
                 //the following code won't compile unless the script "player Attack" has been created. TODO
-                //takeDamage(collision.gameObject.GetComponent<playerAttack>().strength;);
-                //takeKnockback(collision.gameObject.GetComponent<playerAttack>().knockback);
+                takeDamage(collision.gameObject.GetComponent<playerAttack>().strength);
+                takeKnockback(collision.gameObject.GetComponent<playerAttack>().knockback);
             }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             Vector3 otherDude = collision.transform.position;
             gameObject.transform.Translate((gameObject.transform.position - otherDude).normalized * Time.deltaTime * 2);

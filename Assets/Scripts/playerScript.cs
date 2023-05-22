@@ -74,7 +74,7 @@ public class playerScript : MonoBehaviour
         {
             GenericEnemy genericEnemy = collision.gameObject.GetComponent<GenericEnemy>();
             if (genericEnemy.canAttack(this))
-            {
+            { 
                 genericEnemy.meleeAttack();
                 this.takeDamage(genericEnemy.getAttackStrength());
             }
