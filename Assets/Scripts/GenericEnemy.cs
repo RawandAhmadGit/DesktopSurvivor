@@ -19,6 +19,7 @@ public enum EnemyType
     bacteria3,
     loveLetter1,
     loveLetter2,
+    loveLetter3,
     trojan1,
     trojan2,
     trojan3,
