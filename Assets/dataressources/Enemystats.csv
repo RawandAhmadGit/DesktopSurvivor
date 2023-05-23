@@ -1,7 +1,19 @@
-Enemy,HP,Attack,Speed,Knockback,XP Yield
-Virus,1,1,1,1,1
-Worm,1,1,0.8125,0.8125,1
-Bacteria,0.75,1,1.25,1,1
-LoveLetter,1.25,1,0.8125,1,1
-Skull,1,1,4,2,1
-Trojan,2,1,1,0.5,2
+name,hp,attack,xp,speed,knockback
+virus1,40,8,2,1,1
+virus2,80,12,3,1.125,1
+virus3,200,20,4,1.25,1
+worm1,40,8,2,0.8125,0.8125
+worm2,80,12,3,0.9140625,0.8125
+worm3,200,20,4,1.015625,0.8125
+bacteria1,30,8,2,1.25,1
+bacteria2,60,12,3,1.40625,1
+bacteria3,150,20,4,1.5625,1
+loveLetter1,50,8,2,0.8125,1
+loveLetter2,100,12,3,0.9140625,1
+loveLetter3,250,20,4,1.015625,1
+skull1,40,8,2,4,2
+skull2,80,12,3,5,2
+skull3,200,20,4,6,2
+trojan1,80,8,4,1,0.5
+trojan2,160,12,6,1.125,0.5
+trojan3,400,20,8,1.25,0.5
