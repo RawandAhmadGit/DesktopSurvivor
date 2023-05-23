@@ -32,6 +32,7 @@ public enum EnemyType
 public class GenericEnemy : MonoBehaviour
 {
     private GameObject thePlayer;
+    public GameObject damageNumbersPrefab;
     private float speed = 1f;
     private EnemyType _type = EnemyType.undefined;
     private float _maxHP = 40;
@@ -46,12 +47,14 @@ public class GenericEnemy : MonoBehaviour
     private bool _isDead = false;
     public AnimationClip[] clips = new AnimationClip[20];
     private bool hasBeenHit = false;
+    private Vector3 currentPosition; // Variable to store the enemy's current position
 
     
     // Start is called before the first frame update
     void Start()
     {
         thePlayer = GameObject.FindGameObjectWithTag("Player");
+        currentPosition = transform.position; // Initialize the current position variable
     }
 
     // Update is called once per frame
@@ -61,6 +64,7 @@ public class GenericEnemy : MonoBehaviour
         Vector3 connectionLine = target - gameObject.transform.position;
         connectionLine.Normalize();
         connectionLine.Scale(new Vector3(Time.deltaTime * speed, Time.deltaTime * speed, Time.deltaTime * speed));
+        currentPosition = transform.position; // Update the current position variable
         if (_isDead) connectionLine *= -1; //if the enemy is dead, they move away from the player instead
         gameObject.transform.Translate(connectionLine);
         if (_isDead)
@@ -114,6 +118,9 @@ public class GenericEnemy : MonoBehaviour
         {
             Vector3 otherDude = collision.transform.position;
             gameObject.transform.Translate((gameObject.transform.position - otherDude).normalized * Time.deltaTime * 2);
+
+            // Store the hit enemy in the bullet script to prevent further collisions with the same enemy
+            collision.gameObject.GetComponent<playerAttack>().RegisterHitEnemy(this);
         }
     }
    
@@ -126,15 +133,34 @@ public class GenericEnemy : MonoBehaviour
             _currentHP = 0;
             die();
         }
-
+        
+        // Show the damage numbers
+        // ShowDamageNumbers(incomingDamage);
     }
+
+    /*private void ShowDamageNumbers(float damage)
+    {
+        // Instantiate the damage numbers GameObject
+        GameObject damageNumbersObject = Instantiate(damageNumbersPrefab, currentPosition + new Vector3(0f, 1f, 0f), Quaternion.identity);
+
+        // Get the DamageNumbers component from the instantiated damage numbers GameObject
+        DamageNumbers damageNumbers = damageNumbersObject.GetComponent<DamageNumbers>();
+
+        // Display the damage on the damage numbers
+        damageNumbers.ShowDamage(damage);
+    }*/
+
     private void die()
     {
         //TODO
     }
+
     private void TakeKnockback(float incomingKnockback)
     {
-        //TODO
+        Vector2 knockbackDirection = (transform.position - thePlayer.transform.position).normalized;
+
+        // Apply the knockback force
+        transform.position += (Vector3)knockbackDirection * incomingKnockback;
     }
 
     public void MeleeAttack()

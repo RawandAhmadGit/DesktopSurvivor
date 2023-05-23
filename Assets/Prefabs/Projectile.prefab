@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackStrength: 1
-  knockbackStrength: 0
+  knockbackStrength: 0.3
   hitEnemies: []
 --- !u!212 &2035943001072823700
 SpriteRenderer:
