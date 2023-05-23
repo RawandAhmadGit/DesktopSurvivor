@@ -7,18 +7,19 @@ using System;
 public class playerScript : MonoBehaviour
 {
     public const float baseMoveSpeed = 3f;
-    public float moveSpeedStatMultiplier = 1f;
-    public float debuffMoveSpeedMultiplier = 1f;
     public const float minimumSpeed = 1f;
-    public float knockbackStrength;
-    public float attackStrength;
     public float attackMultiplier;
     public float attackspeedModifier;
-    public float projectilespeedModifier;
-    public float projectilesizeModifier;
-    public float projectilecountModifier;
-    public float critRate;
+    public float attackStrength;
     public float critDamage;
+    public float critRate;
+    public float debuffMoveSpeedMultiplier = 1f;
+    public float knockbackStrength;
+    public float moveSpeedStatMultiplier = 1f;
+    public float projectilecountModifier;
+    public float projectiledurationModifier;
+    public float projectilesizeModifier;
+    public float projectilespeedModifier;
 
     private float EffectiveSpeed()
     {

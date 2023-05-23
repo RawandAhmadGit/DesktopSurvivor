@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d583f51cb2081974dbb2ec1cdaaedc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageNumbersPrefab: {fileID: 5555198647971327548, guid: b85f000cd95427c4a865f4a695a3a761, type: 3}
+  _currentHP: 40
   clips:
   - {fileID: 0}
   - {fileID: 0}
