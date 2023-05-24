@@ -21,10 +21,7 @@ public class MapLogic : MonoBehaviour
                 const float spawnRadius = 10;
                 Vector3 newEnemyPos = (Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius;
                 GameObject newestEnemy = Instantiate(toBeSpawned, newEnemyPos, Quaternion.identity);
-                if (Random.value < 0.2)
-                {
-                    newestEnemy.GetComponent<GenericEnemy>().defineEnemyType(EnemyType.worm2, false);
-                }
+                newestEnemy.GetComponent<GenericEnemy>().defineEnemyType(getViableEnemyEntry(),false);
                 timeUntilNextSpawn = 4f;
             }
             else
@@ -43,4 +40,11 @@ public class MapLogic : MonoBehaviour
     {
         isSpawningEnabled = false;
     }
+
+    private EnemyEntry getViableEnemyEntry()
+    {
+        return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries[Random.Range(0, GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries.Count)];
 }
+}
+
+
