@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class EnemyEntry
@@ -27,14 +28,13 @@ public class DataHolder : MonoBehaviour
             enemyEntries.Add(
                 new EnemyEntry{
                     name = parsed[i][0],
-                    hp = float.Parse(parsed[i][1]),
-                    attack = float.Parse(parsed[i][2]),
-                    xp = float.Parse(parsed[i][3]),
-                    speed = float.Parse(parsed[i][4]),
-                    knockback = float.Parse(parsed[i][5])});
+                    hp = float.Parse(parsed[i][1],CultureInfo.InvariantCulture),
+                    attack = float.Parse(parsed[i][2],CultureInfo.InvariantCulture),
+                    xp = float.Parse(parsed[i][3], CultureInfo.InvariantCulture),
+                    speed = float.Parse(parsed[i][4], CultureInfo.InvariantCulture),
+                    knockback = float.Parse(parsed[i][5], CultureInfo.InvariantCulture)
+                });
         }
-        foreach (EnemyEntry e in enemyEntries)
-        print(e.name);
     }
 
     // Update is called once per frame
