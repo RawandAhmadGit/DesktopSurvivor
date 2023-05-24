@@ -45,7 +45,6 @@ public class GenericEnemy : MonoBehaviour
     private float _expYield = 2;
     private float _knockbackMultiplier = 1;
     private bool _isDead = false;
-    public AnimationClip[] clips = new AnimationClip[20];
     private bool hasBeenHit = false;
     private Vector3 currentPosition; // Variable to store the enemy's current position
 
@@ -54,7 +53,6 @@ public class GenericEnemy : MonoBehaviour
     void Start()
     {
         thePlayer = GameObject.FindGameObjectWithTag("Player");
-        currentPosition = transform.position; // Initialize the current position variable
     }
 
     // Update is called once per frame
@@ -63,8 +61,7 @@ public class GenericEnemy : MonoBehaviour
         Vector3 target = thePlayer.GetComponent<Transform>().position;
         Vector3 connectionLine = target - gameObject.transform.position;
         connectionLine.Normalize();
-        connectionLine.Scale(new Vector3(Time.deltaTime * speed, Time.deltaTime * speed, Time.deltaTime * speed));
-        currentPosition = transform.position; // Update the current position variable
+        connectionLine *= speed * Time.deltaTime;
         if (_isDead) connectionLine *= -1; //if the enemy is dead, they move away from the player instead
         gameObject.transform.Translate(connectionLine);
         if (_isDead)
@@ -80,24 +77,25 @@ public class GenericEnemy : MonoBehaviour
         }
     }
 
-    public void defineEnemyType(EnemyType newType, bool isBoss)
+
+    public void defineEnemyType(EnemyEntry incomingData, bool isBoss)
     {
-        if (newType > EnemyType.worm1)
+
+        this._attackStrength = incomingData.attack;
+        this._currentHP = incomingData.hp;
+        this._maxHP = incomingData.hp;
+        this.speed = incomingData.speed;
+        this._expYield = incomingData.xp;
+        this._knockbackMultiplier = incomingData.knockback;
+        gameObject.GetComponent<Animator>().Play(incomingData.name);
+        if (isBoss)
         {
-            gameObject.GetComponent<Animator>().Play("Worm2");
+            _maxHP *= 10;
+            _knockbackMultiplier *= 0.5f;
+            _attackStrength *= 2f;
+            _expYield *= 20;
+            gameObject.transform.localScale *= 1.5f;
         }
-        _type = newType; //currently not doing anything :( TODO
-        _maxHP = 20;
-        if (isBoss) _maxHP *= 10;
-        _currentHP = _maxHP;
-        _attackStrength = 8;
-        if (isBoss) _attackStrength *= 2;
-        speed = 1;
-        _expYield = 2;
-        if (isBoss) _expYield *= 20;
-        _knockbackMultiplier = 1;
-        if (isBoss) _knockbackMultiplier /= 2;
-        //TODO
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -117,7 +115,7 @@ public class GenericEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Vector3 otherDude = collision.transform.position;
-            gameObject.transform.Translate((gameObject.transform.position - otherDude).normalized * Time.deltaTime * 2);
+            gameObject.transform.Translate(2 * Time.deltaTime * (gameObject.transform.position - otherDude).normalized);
 
             // Store the hit enemy in the bullet script to prevent further collisions with the same enemy
             collision.gameObject.GetComponent<playerAttack>().RegisterHitEnemy(this);
@@ -160,7 +158,8 @@ public class GenericEnemy : MonoBehaviour
         Vector2 knockbackDirection = (transform.position - thePlayer.transform.position).normalized;
 
         // Apply the knockback force
-        transform.position += (Vector3)knockbackDirection * incomingKnockback;
+        //BERNI ZEIGEN
+        transform.Translate((Vector3)knockbackDirection * incomingKnockback * _knockbackMultiplier);
     }
 
     public void MeleeAttack()
