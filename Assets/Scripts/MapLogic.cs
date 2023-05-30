@@ -1,4 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+public class MapPhaseEntry
+{
+    int phase;
+    string enemy;
+}
 
 public class MapLogic : MonoBehaviour
 {
@@ -6,6 +13,8 @@ public class MapLogic : MonoBehaviour
     public GameObject toBeSpawned;
 
     private bool isSpawningEnabled = true;
+
+    private List<MapPhaseEntry> phaseEntries;
 
     void Start()
     {
