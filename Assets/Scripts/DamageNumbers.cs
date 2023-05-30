@@ -1,37 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class DamageNumbers : MonoBehaviour
 {
-    public TMPro.TextMeshPro damageText; // Reference to the TextMeshPro component for displaying the damage
-    public float displayDuration = 2f; // Duration for which the damage popup is displayed
-    private float currentDuration = 0f; // Current duration of the damage popup
+    public TextMeshPro damageText; // Reference to the TextMeshPro component for displaying the damage
+    public float displayDuration = 1f; // Duration for which the damage popup is displayed
+
+    private void Start()
+    {
+        // Deactivate the damage popup GameObject on start
+        gameObject.SetActive(false);
+    }
 
     public void ShowDamage(float damage)
     {
         // Set the damage text to the provided damage value
         damageText.text = damage.ToString();
 
-        // Reset the current duration
-        currentDuration = 0f;
-
         // Activate the damage popup GameObject
         gameObject.SetActive(true);
+
+        // Start a coroutine to deactivate the damage popup after the display duration
+        StartCoroutine(HideDamage());
     }
 
-    private void Update()
+    private IEnumerator HideDamage()
     {
-        // Increase the current duration
-        currentDuration += Time.deltaTime;
+        // Wait for the display duration
+        yield return new WaitForSeconds(displayDuration);
 
-        // Check if the damage popup duration exceeds the display duration
-        if (currentDuration >= displayDuration)
-        {
-            // Deactivate the damage popup GameObject
-            gameObject.SetActive(false);
-        }
+        // Deactivate the damage popup GameObject
+        gameObject.SetActive(false);
     }
 }
-
-

@@ -7,7 +7,7 @@ public class playerAttack : MonoBehaviour
     private playerScript player; // Reference to the playerScript
     public float attackStrength;
     public float knockbackStrength;
-    public float projectileDuration = 5f;
+    public float projectileDuration = 3f;
     private float currentDuration = 0f;
     public List<GenericEnemy> hitEnemies;
 

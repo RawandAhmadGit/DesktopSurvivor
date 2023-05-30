@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 public enum EnemyType
@@ -32,7 +33,12 @@ public enum EnemyType
 public class GenericEnemy : MonoBehaviour
 {
     private GameObject thePlayer;
+    // Damage Numbers
     public GameObject damageNumbersPrefab;
+    private float displayDuration = 0.25f;
+    private float fadeSpeed = 10f;
+    private Vector2 offset = new Vector2(0.2f, -0.15f); 
+    // Enemy Movement
     private float speed = 1f;
     private EnemyType _type = EnemyType.undefined;
     private float _maxHP = 40;
@@ -48,11 +54,12 @@ public class GenericEnemy : MonoBehaviour
     private bool hasBeenHit = false;
     private Vector3 currentPosition; // Variable to store the enemy's current position
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
         thePlayer = GameObject.FindGameObjectWithTag("Player");
+        damageNumbersPrefab = GameObject.Find("DamageNumbers"); // Find the DamageNumbers prefab by name
     }
 
     // Update is called once per frame
@@ -133,20 +140,51 @@ public class GenericEnemy : MonoBehaviour
         }
         
         // Show the damage numbers
-        // ShowDamageNumbers(incomingDamage);
+        ShowDamageNumbers(incomingDamage);
     }
 
-    /*private void ShowDamageNumbers(float damage)
+    private void ShowDamageNumbers(float damage)
     {
         // Instantiate the damage numbers GameObject
-        GameObject damageNumbersObject = Instantiate(damageNumbersPrefab, currentPosition + new Vector3(0f, 1f, 0f), Quaternion.identity);
+        GameObject damageNumbersObject = Instantiate(damageNumbersPrefab, transform.position, Quaternion.identity);
 
-        // Get the DamageNumbers component from the instantiated damage numbers GameObject
-        DamageNumbers damageNumbers = damageNumbersObject.GetComponent<DamageNumbers>();
+        // Set the parent of the instantiated damage numbers GameObject to the "DamageNumbers" parent object
+        damageNumbersObject.transform.SetParent(damageNumbersPrefab.transform.parent, false);
+
+        // Get the TextMeshPro component from the instantiated damage numbers GameObject
+        TextMeshPro damageText = damageNumbersObject.GetComponent<TextMeshPro>();
 
         // Display the damage on the damage numbers
-        damageNumbers.ShowDamage(damage);
-    }*/
+        damageText.text = damage.ToString();
+
+        // Apply the offset to the position
+        Vector3 position = transform.position + new Vector3(offset.x, offset.y, 0f);
+        damageNumbersObject.transform.position = position;
+
+        // Start the coroutine to fade out and destroy the damage numbers GameObject
+        StartCoroutine(FadeOutDamageNumbers(damageNumbersObject));
+    }
+
+    private IEnumerator FadeOutDamageNumbers(GameObject damageNumbersObject)
+    {
+        // Get the TextMeshPro component from the damage numbers GameObject
+        TextMeshPro damageText = damageNumbersObject.GetComponent<TextMeshPro>();
+
+        // Wait for a brief duration before starting the fade-out
+        yield return new WaitForSeconds(displayDuration);
+
+        // Fade out the damage numbers
+        while (damageText.color.a > 0)
+        {
+            Color color = damageText.color;
+            color.a -= fadeSpeed * Time.deltaTime;
+            damageText.color = color;
+            yield return null;
+        }
+
+        // Destroy the damage numbers GameObject
+        Destroy(damageNumbersObject);
+    }
 
     private void die()
     {

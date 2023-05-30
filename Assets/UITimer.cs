@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UITimer : MonoBehaviour
 {
-    public TextMeshPro theText;
+    public TextMeshProUGUI theText;
     // Start is called before the first frame update
     void Start()
     {
