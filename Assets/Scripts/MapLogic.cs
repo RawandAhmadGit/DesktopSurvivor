@@ -3,27 +3,31 @@ using UnityEngine;
 
 public class MapPhaseEntry
 {
-    int phase;
-    string enemy;
+    public int phase;
+    public string enemy;
+    public int weight;
 }
 
 public class MapLogic : MonoBehaviour
 {
-    public float timeUntilNextSpawn = 0f;
+    public float timeUntilNextSpawn = 2f;
+    public float mapTime;
     public GameObject toBeSpawned;
+    public int level;
 
-    private bool isSpawningEnabled = true;
+    private bool mapUnpaused = true;
 
     private List<MapPhaseEntry> phaseEntries;
 
     void Start()
     {
         // Assign the prefab manually
+        phaseEntries = GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().GetPhaseEntriesOfLevel(level);
     }
 
     void Update()
     {
-        if (isSpawningEnabled)
+        if (mapUnpaused)
         {
             if (timeUntilNextSpawn <=  0)
             {
@@ -40,20 +44,40 @@ public class MapLogic : MonoBehaviour
         }
     }
 
-    public void EnableSpawning()
+    public void Unpause()
     {
-        isSpawningEnabled = true;
+        mapUnpaused = true;
     }
 
-    public void DisableSpawning()
+    public void Pause()
     {
-        isSpawningEnabled = false;
+        mapUnpaused = false;
     }
 
     private EnemyEntry getViableEnemyEntry()
     {
-        return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries[Random.Range(0, GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries.Count)];
+        //first we create a weighted list of all viable enemies for this phase
+        List<MapPhaseEntry> weightedList = new();
+        for (int iteratorPhaseEntries = 0;iteratorPhaseEntries < phaseEntries.Count; iteratorPhaseEntries++) { 
+            if (phaseEntries[iteratorPhaseEntries].phase == getCurrentPhase())
+            {
+                for (int  iteratorWeightCounter = 0;iteratorWeightCounter < phaseEntries[iteratorPhaseEntries].weight; iteratorWeightCounter++)
+                {
+                    weightedList.Add(phaseEntries[iteratorPhaseEntries]);
+                }
+            }
+        }
+        //now we choose a random phaseEntry from the weighted lsit and get a corresponding enemyEntry
+        string enemyName = weightedList[Random.Range(0, weightedList.Count)].enemy;
+        return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().getEnemyOfName(enemyName);
+
+        //return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries[Random.Range(0, GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries.Count)];
 }
+
+    private int getCurrentPhase()
+    {
+        return Mathf.FloorToInt(mapTime / 150f) + 1;
+    }
 }
 
 

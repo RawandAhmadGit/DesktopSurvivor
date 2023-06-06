@@ -331,7 +331,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1186906134
 GameObject:
@@ -447,7 +447,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeUntilNextSpawn: 0
+  mapTime: 0
   toBeSpawned: {fileID: 4187038594126883120, guid: c6d80967c8957cd46ad6b17456cc90ed, type: 3}
+  level: 1
 --- !u!4 &1221916103
 Transform:
   m_ObjectHideFlags: 0
@@ -492,7 +494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba01ca4b0b58c734697ce9ed3898ccbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refToEnemyDataCSV: {fileID: 4900000, guid: 7c23b3a368b5bd346b5566651d05ddf0, type: 3}
+  refToEnemyDataCSV: {fileID: 4900000, guid: 840ea83bc5bf9ed4d81e73679e954351, type: 3}
+  refToPhaseDataCSV: {fileID: 4900000, guid: 840ea83bc5bf9ed4d81e73679e954351, type: 3}
 --- !u!4 &1246064987
 Transform:
   m_ObjectHideFlags: 0
@@ -506,7 +509,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &36558296430902381
 RectTransform:
@@ -521,7 +524,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -802,4 +805,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852c3861df2e2dd4fa631874c4eafd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theText: {fileID: 2736635151207745155}
+  theText: {fileID: 0}
