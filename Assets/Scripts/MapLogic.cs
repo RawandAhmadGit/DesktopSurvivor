@@ -17,7 +17,7 @@ public class MapLogic : MonoBehaviour
 
     private bool mapUnpaused = true;
 
-    private List<MapPhaseEntry> phaseEntries;
+    private List<MapPhaseEntry> phaseEntries = new();
 
     void Start()
     {

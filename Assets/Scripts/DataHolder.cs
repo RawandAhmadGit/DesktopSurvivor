@@ -55,21 +55,20 @@ public class DataHolder : MonoBehaviour
         List<string[]> parsed = CSVSerializer.ParseCSV(refToEnemyDataCSV.text);
         for (int i = 1; i < parsed.Count; i++)
         {
-            enemyEntries.Add(
-                new EnemyEntry{
-                    name = parsed[i][0],
-                    hp = float.Parse(parsed[i][1],CultureInfo.InvariantCulture),
-                    attack = float.Parse(parsed[i][2],CultureInfo.InvariantCulture),
-                    xp = float.Parse(parsed[i][3], CultureInfo.InvariantCulture),
-                    speed = float.Parse(parsed[i][4], CultureInfo.InvariantCulture),
-                    knockback = float.Parse(parsed[i][5], CultureInfo.InvariantCulture)
-                });
+            this.enemyEntries.Add(new EnemyEntry());
+            enemyEntries.Last().name = parsed[i][0];
+            enemyEntries.Last().hp = float.Parse(parsed[i][1], CultureInfo.InvariantCulture);
+            enemyEntries.Last().attack = float.Parse(parsed[i][2], CultureInfo.InvariantCulture);
+            enemyEntries.Last().xp = float.Parse(parsed[i][3], CultureInfo.InvariantCulture);
+            enemyEntries.Last().speed = float.Parse(parsed[i][4], CultureInfo.InvariantCulture);
+            enemyEntries.Last().knockback = float.Parse(parsed[i][5], CultureInfo.InvariantCulture);
+
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
