@@ -22,6 +22,11 @@ public class DataHolder : MonoBehaviour
     public List<EnemyEntry> enemyEntries = new List<EnemyEntry>();
     public TextAsset refToPhaseDataCSV;
 
+    public TextAsset refToWeaponData;
+    public List<WeaponEntry> weaponEntries = new List<WeaponEntry>();
+
+    //more refs to weapon data
+
     internal EnemyEntry getEnemyOfName(string incomingName)
     {
         foreach (EnemyEntry entry in enemyEntries)
@@ -63,7 +68,8 @@ public class DataHolder : MonoBehaviour
             enemyEntries.Last().speed = float.Parse(parsed[i][4], CultureInfo.InvariantCulture);
             enemyEntries.Last().knockback = float.Parse(parsed[i][5], CultureInfo.InvariantCulture);
 
-        }
+        };
+        List<string[]> weaponCSV = CSVSerializer.ParseCSV(refToWeaponData.text);
     }
 
     // Update is called once per frame
