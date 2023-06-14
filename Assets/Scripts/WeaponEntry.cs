@@ -1,4 +1,6 @@
-﻿public enum weapontype
+﻿using System.Globalization;
+
+public enum weapontype
 {
     MousePointer,
     CDRom,
@@ -33,4 +35,20 @@ public class WeaponEntry
     const int colSize1 = 10;
     public float size2;
     const int colSize2 = 11;
+
+    WeaponEntry(string[] line)
+    {
+        type = System.Enum.Parse<weapontype>(line[colWeapontype]);
+        level = int.Parse(line[colLevel], CultureInfo.InvariantCulture);
+        desc = line[colDesc];
+        damage = float.Parse(line[colDamage],CultureInfo.InvariantCulture);
+        fireRate = float.Parse(line[colFireRate],CultureInfo.InvariantCulture);
+        maxTargets = int.Parse(line[colMaxTargets],CultureInfo.InvariantCulture);
+        projectileSpeed = float.Parse(line[colProjectileSpeed], CultureInfo.InvariantCulture);
+        projectileCount = int.Parse(line[colProjectileCount], CultureInfo.InvariantCulture);
+        size1 = float.Parse(line[colSize1], CultureInfo.InvariantCulture);
+        size2 = float.Parse(line[colSize2], CultureInfo.InvariantCulture);
+        maxDuration = float.Parse(line[colMaxDuration], CultureInfo.InvariantCulture);
+        knockback = float.Parse(line[colKnockback], CultureInfo.InvariantCulture);
+    }
 }
