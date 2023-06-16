@@ -36,7 +36,7 @@ public class WeaponEntry
     public float size2;
     const int colSize2 = 11;
 
-    WeaponEntry(string[] line)
+    public WeaponEntry(string[] line)
     {
         type = System.Enum.Parse<weapontype>(line[colWeapontype]);
         level = int.Parse(line[colLevel], CultureInfo.InvariantCulture);

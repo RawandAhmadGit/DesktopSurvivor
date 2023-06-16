@@ -70,6 +70,11 @@ public class DataHolder : MonoBehaviour
 
         };
         List<string[]> weaponCSV = CSVSerializer.ParseCSV(refToWeaponData.text);
+        for (int i = 1; i< weaponCSV.Count; i++)
+        {
+            weaponEntries.Add(new WeaponEntry(weaponCSV[i]));
+        }
+        
     }
 
     // Update is called once per frame
