@@ -55,6 +55,16 @@ public class DataHolder : MonoBehaviour
         return r;
     }
 
+    internal WeaponEntry getWeaponEntry(weapontype type, int level)
+    {
+        foreach(WeaponEntry entry in weaponEntries)
+        {
+            if (entry.type == type && entry.level == level) return entry;
+        }
+        print("getWeaponEntry() no weapon found! Returning firts entry");
+        return weaponEntries[0];
+    }
+
     void Awake()
     {
         List<string[]> parsed = CSVSerializer.ParseCSV(refToEnemyDataCSV.text);

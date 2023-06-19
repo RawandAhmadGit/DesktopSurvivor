@@ -20,6 +20,8 @@ public class playerScript : MonoBehaviour
     public float projectiledurationModifier;
     public float projectilesizeModifier;
     public float projectilespeedModifier;
+    private List<HeldWeapon> heldWeapons;
+    public DataHolder dataHolder;
 
     private float EffectiveSpeed()
     {
