@@ -1,12 +1,12 @@
 ﻿internal class HeldWeapon
 {
     public playerScript holder;
-    public weapontype type;
     public float remainingCooldown;
     public int level;
-    public float getNextCooldown()
+    public WeaponEntry wData;
+    public float GetNextCooldown()
     {
         remainingCooldown = 10;
-        holder.dataHolder.getWeaponEntry(type, level);
+        return 60/wData.fireRate/holder.attackspeedModifier;
     }
 }
