@@ -16,34 +16,26 @@ internal class HeldWeapon
         remainingCooldown = 0;
     }
 
-    public void Update()
+    public void Update(UnityEngine.GameObject incomingPrefab)
     {
         remainingCooldown -= Time.deltaTime;
+        if (remainingCooldown == float.PositiveInfinity)
+            remainingCooldown = GetNextCooldown();
+
         if (remainingCooldown < 0)
         {
-            Fire();
+            Fire(incomingPrefab);
             remainingCooldown = GetNextCooldown();
         }
     }
 
-    private void Fire()
+    private void Fire(UnityEngine.GameObject incoming)
     {
         for (int i = 0; i<wData.projectileCount + holder.projectilecountModifier; i++)
         {
-            GameObject newProjectile = new();
-            newProjectile.AddComponent<Image>();
-            playerAttack refPA = newProjectile.AddComponent<playerAttack>();
-            refPA.attackStrength = wData.damage;
-            if (Random.Range(0,1) < holder.critRate) refPA.attackStrength *= holder.critDamage;
-            refPA.knockbackStrength = wData.knockback;
-            refPA.projectileDuration = wData.maxDuration;
-            newProjectile.transform.position = holder.transform.position;
-            switch (wData.type)
-            {
-                //this needs to add the specific components and Images.
-                default:
-                    break;
-            }
+
+            UnityEngine.GameObject newObject = UnityEngine.GameObject.Instantiate(incoming, holder.transform.position, Quaternion.identity);
+            newObject.GetComponent<playerAttack>().wData = this.wData;
         }
         return;
     }

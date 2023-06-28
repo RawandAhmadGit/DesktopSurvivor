@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerAttack : MonoBehaviour
 {
     private playerScript player; // Reference to the playerScript
+    public WeaponEntry wData;
     public float attackStrength;
     public float knockbackStrength;
     public float projectileDuration = 3f;

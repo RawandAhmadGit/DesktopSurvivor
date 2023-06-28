@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 94143755}
   - component: {fileID: 94143754}
-  - component: {fileID: 94143757}
   - component: {fileID: 94143753}
   - component: {fileID: 94143750}
   m_Layer: 0
@@ -171,18 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf7e0ce2ec5c1740b6d50e3d52f8b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackMultiplier: 0
-  attackspeedModifier: 0
-  attackStrength: 0
-  critDamage: 0
-  critRate: 0
-  debuffMoveSpeedMultiplier: 1
-  knockbackStrength: 1
-  moveSpeedStatMultiplier: 1
+  attackspeedModifier: 1
   projectilecountModifier: 0
-  projectiledurationModifier: 0
-  projectilesizeModifier: 0
-  projectilespeedModifier: 0
+  dataHolder: {fileID: 1246064986}
+  prefab_CDROM: {fileID: 221821331815197169, guid: b59cfb27c388d314f9e94dbd9ca88c2c, type: 3}
 --- !u!212 &94143754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -250,21 +241,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &94143757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94143749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7007f349220b54cbddc0bfecd74dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 2035943001072823696, guid: b943ed43235da3246ae346a3f37926eb, type: 3}
-  fireRate: 0.5
-  projectileSpeed: 10
 --- !u!1 &1144688729
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   refToEnemyDataCSV: {fileID: 4900000, guid: 7c23b3a368b5bd346b5566651d05ddf0, type: 3}
   refToPhaseDataCSV: {fileID: 4900000, guid: 840ea83bc5bf9ed4d81e73679e954351, type: 3}
+  refToWeaponData: {fileID: 4900000, guid: 761f1b8897a2c7e4186ee8c6f6bacf49, type: 3}
 --- !u!4 &1246064987
 Transform:
   m_ObjectHideFlags: 0
@@ -683,7 +660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6092764891277632958
 MonoBehaviour:
   m_ObjectHideFlags: 0

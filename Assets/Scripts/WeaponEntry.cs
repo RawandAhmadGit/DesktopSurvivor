@@ -6,7 +6,7 @@ public enum weapontype
     CDRom,
     Resizer,
     LoadingIcon,
-    Firewall
+    FireWall
 }
 
 public class WeaponEntry

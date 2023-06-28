@@ -6,39 +6,42 @@ using System;
 
 public class playerScript : MonoBehaviour
 {
-    public const float baseMoveSpeed = 3f;
-    public const float minimumSpeed = 1f;
-    public float attackMultiplier;
-    public float attackspeedModifier;
-    public float attackStrength;
-    public float critDamage;
-    public float critRate;
-    public float debuffMoveSpeedMultiplier = 1f;
-    public float knockbackStrength;
-    public float moveSpeedStatMultiplier = 1f;
-    public float projectilecountModifier;
-    public float projectiledurationModifier;
-    public float projectilesizeModifier;
-    public float projectilespeedModifier;
-    private List<HeldWeapon> heldWeapons;
+    private const float baseMoveSpeed = 3f;
+    private const float minimumSpeed = 1f;
+    private float attackMultiplier = 1;
+    public float attackspeedModifier = 1;
+    private float critDamage = 2;
+    private float critRate = 1/16;
+    private float debuffMoveSpeedMultiplier = 1f;
+    private float knockbackMultiplier = 1;
+    private float moveSpeedStatMultiplier = 1f;
+    public float projectilecountModifier = 0;
+    private float projectiledurationModifier = 1;
+    private float projectilesizeModifier = 1;
+    private float projectilespeedModifier = 1;
+    private List<HeldWeapon> heldWeapons = new();
     public DataHolder dataHolder;
+    public UnityEngine.GameObject prefab_CDROM;
+
 
     private float EffectiveSpeed()
     {
         return math.max(baseMoveSpeed * moveSpeedStatMultiplier * debuffMoveSpeedMultiplier, minimumSpeed);
     }
-    private Vector2 _frameAccel;
+
     private SpriteRenderer _spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        heldWeapons.Add(new HeldWeapon(dataHolder.getWeaponEntry(weapontype.CDRom, 1),this));
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector2 _frameAccel;
         _frameAccel = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
@@ -79,6 +82,13 @@ public class playerScript : MonoBehaviour
         }
 
         gameObject.transform.Translate(_frameAccel);
+        foreach (HeldWeapon w in heldWeapons)
+        {
+            if (w.wData.type == weapontype.CDRom)
+            {
+                w.Update(prefab_CDROM);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
