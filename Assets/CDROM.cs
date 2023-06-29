@@ -21,7 +21,12 @@ public class CDROM : MonoBehaviour
     {
         Vector3 frameMove = flyingDirection.normalized;
         frameMove *= (PlayerAttack.wData.projectileSpeed * Time.deltaTime);
-        transform.Translate(frameMove);
+        transform.position += frameMove;
+        transform.Rotate(Vector3.forward, 720 * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         
     }
 }

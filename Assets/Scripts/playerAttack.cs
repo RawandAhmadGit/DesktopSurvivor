@@ -47,7 +47,17 @@ public class playerAttack : MonoBehaviour
     {
         // Store the hit enemy and perform any necessary actions
         hitEnemies.Add(enemy);
+    }
 
-        // Example: Apply additional effects or logic when an enemy is hit
+    public bool IsRegistered(GenericEnemy enemy)
+    {
+        foreach (GenericEnemy e in hitEnemies)
+        {
+            if (enemy == e)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

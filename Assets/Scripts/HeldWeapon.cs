@@ -13,7 +13,7 @@ internal class HeldWeapon
     {
         wData = entry;
         this.holder = holder;
-        remainingCooldown = 0;
+        remainingCooldown = 1;
     }
 
     public void Update(UnityEngine.GameObject incomingPrefab)
