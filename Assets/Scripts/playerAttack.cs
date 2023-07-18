@@ -37,9 +37,6 @@ public class playerAttack : MonoBehaviour
         {
             // Handle the enemy hit with attack and knockback
             RegisterHitEnemy(enemy);
-
-            // Destroy the projectile
-            Destroy(gameObject);
         }
     }
 

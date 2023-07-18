@@ -114,19 +114,8 @@ public class GenericEnemy : MonoBehaviour
                 //the following code won't compile unless the script "player Attack" has been created. TODO
                 TakeDamage(collision.gameObject.GetComponent<playerAttack>().attackStrength);
                 TakeKnockback(collision.gameObject.GetComponent<playerAttack>().knockbackStrength);
+                collision.GetComponent<playerAttack>().RegisterHitEnemy(this);
             }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Vector3 otherDude = collision.transform.position;
-            gameObject.transform.Translate(2 * Time.deltaTime * (gameObject.transform.position - otherDude).normalized);
-
-            // Store the hit enemy in the bullet script to prevent further collisions with the same enemy
-            collision.gameObject.GetComponent<playerAttack>().RegisterHitEnemy(this);
-        }
     }
    
     

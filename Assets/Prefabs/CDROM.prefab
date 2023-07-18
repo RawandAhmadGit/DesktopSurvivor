@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackStrength: 0
   knockbackStrength: 0
-  projectileDuration: 3
+  projectileDuration: 10
   hitEnemies: []
 --- !u!114 &1943942021598976907
 MonoBehaviour:

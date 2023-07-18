@@ -11,9 +11,14 @@ public class CDROM : MonoBehaviour
     void Start()
     {
         PlayerAttack = gameObject.GetComponent<playerAttack>();
+        AquireRandomTarget();
+        flyingDirection = (targetEnemy.transform.position - gameObject.transform.position).normalized;
+    }
+
+    private void AquireRandomTarget()
+    {
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         targetEnemy = allEnemies[Random.Range(0, allEnemies.Length)];
-        flyingDirection = targetEnemy.transform.position - gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -23,10 +28,19 @@ public class CDROM : MonoBehaviour
         frameMove *= (PlayerAttack.wData.projectileSpeed * Time.deltaTime);
         transform.position += frameMove;
         transform.Rotate(Vector3.forward, 720 * Time.deltaTime);
+        if (targetEnemy == null)
+        {
+            AquireRandomTarget();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        //Debug.Log("Trigger Enter called");
+        if (collision.gameObject == targetEnemy)
+        {
+            AquireRandomTarget();
+            flyingDirection = (targetEnemy.transform.position - gameObject.transform.position).normalized;
+        }
     }
 }
