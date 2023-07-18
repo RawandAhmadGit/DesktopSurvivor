@@ -10,7 +10,7 @@ public class DamageNumbers : MonoBehaviour
     private void Start()
     {
         // Deactivate the damage popup GameObject on start
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     public void ShowDamage(float damage)

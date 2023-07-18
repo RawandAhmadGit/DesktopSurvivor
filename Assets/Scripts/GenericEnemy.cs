@@ -37,7 +37,7 @@ public class GenericEnemy : MonoBehaviour
     public GameObject damageNumbersPrefab;
     private float displayDuration = 0.25f;
     private float fadeSpeed = 10f;
-    private Vector2 offset = new Vector2(0.2f, -0.15f); 
+    private Vector2 offset = new Vector2(0.2f, -0.15f);
     // Enemy Movement
     private float speed = 1f;
     private EnemyType _type = EnemyType.undefined;
@@ -46,7 +46,7 @@ public class GenericEnemy : MonoBehaviour
     private float MissingHP() { return _maxHP - _currentHP; }
     public float PercentageHP() { return _currentHP / _maxHP; }
     private float _attackStrength = 8;
-    public  float GetAttackStrength() { return _attackStrength; }
+    public float GetAttackStrength() { return _attackStrength; }
     private float _attackCooldown;
     private float _expYield = 2;
     private float _knockbackMultiplier = 1;
@@ -59,7 +59,7 @@ public class GenericEnemy : MonoBehaviour
     void Start()
     {
         thePlayer = GameObject.FindGameObjectWithTag("Player");
-        damageNumbersPrefab = GameObject.Find("DamageNumbers"); // Find the DamageNumbers prefab by name
+        //damageNumbersPrefab = GameObject.Find("DamageNumbers"); // Find the DamageNumbers prefab by name
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class GenericEnemy : MonoBehaviour
         if (_isDead)
         {
             //any updates that have to be done while the enemy is dead but not yet deleted (aka death animation)
-        } 
+        }
         else
         {
             _attackCooldown -= Time.deltaTime;
@@ -110,26 +110,30 @@ public class GenericEnemy : MonoBehaviour
         if (_isDead) return;
 
         if (collision.gameObject.CompareTag("PlayerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
-            {
-                //the following code won't compile unless the script "player Attack" has been created. TODO
-                TakeDamage(collision.gameObject.GetComponent<playerAttack>().attackStrength);
-                TakeKnockback(collision.gameObject.GetComponent<playerAttack>().knockbackStrength);
-                collision.GetComponent<playerAttack>().RegisterHitEnemy(this);
-            }
+        {
+            Debug.Log("I got hit by a player attack");
+            TakeDamage(collision.gameObject.GetComponent<playerAttack>().attackStrength);
+            TakeKnockback(collision.gameObject.GetComponent<playerAttack>().knockbackStrength);
+            collision.GetComponent<playerAttack>().RegisterHitEnemy(this);
+            GameObject newDmgNumber = Instantiate(damageNumbersPrefab, transform.position, Quaternion.identity);
+            //for some reason I cant get past this ^ instantiate
+            Debug.Log("I got past instantiate");
+            newDmgNumber.GetComponent<TextMesh>().text = damageNumbersPrefab.ToString();
+        }
     }
-   
-    
+
+
     private void TakeDamage(float incomingDamage)
     {
-        this._currentHP -=     incomingDamage;
+        this._currentHP -= incomingDamage;
         if (_currentHP < 0)
         {
             _currentHP = 0;
             die();
         }
-        
+
         // Show the damage numbers
-        ShowDamageNumbers(incomingDamage);
+        //ShowDamageNumbers(incomingDamage);
     }
 
     private void ShowDamageNumbers(float damage)

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d583f51cb2081974dbb2ec1cdaaedc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageNumbersPrefab: {fileID: 775671792992417758, guid: fa1e72f51ea8cee468ddef0153130106, type: 3}
+  damageNumbersPrefab: {fileID: 7199348316390924215, guid: bd31066785d09ce448c514ee708aba76, type: 3}
   _currentHP: 40
 --- !u!58 &751677446253672493
 CircleCollider2D:
@@ -65,7 +65,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.27
 --- !u!95 &4805838323030560034
 Animator:
   serializedVersion: 5
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 4187038594126883120}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
