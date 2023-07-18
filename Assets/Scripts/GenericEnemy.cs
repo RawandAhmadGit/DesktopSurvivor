@@ -59,7 +59,6 @@ public class GenericEnemy : MonoBehaviour
     void Start()
     {
         thePlayer = GameObject.FindGameObjectWithTag("Player");
-        //damageNumbersPrefab = GameObject.Find("DamageNumbers"); // Find the DamageNumbers prefab by name
     }
 
     // Update is called once per frame
