@@ -19,7 +19,7 @@ public class EnemyStatTupel
 public class DS_Data
 {
     private static DS_Data _instance;
-    private static DS_Data _getInstance()
+    private static DS_Data GetInstance()
     {
         if (_instance == null)
         {
@@ -28,18 +28,15 @@ public class DS_Data
         return _instance;
     }
     [SerializeField]
-    private TextAsset refToEnemyDataCSV;
-    private List<EnemyStatTupel> enemyEntries = new List<EnemyStatTupel>();
-    private TextAsset refToPhaseDataCSV;
-
-    private TextAsset refToWeaponData;
-    private List<WeaponStatsTupel> weaponStats = new List<WeaponStatsTupel>();
+    private List<EnemyStatTupel> enemyEntries = new();
+    private List<WeaponStatsTupel> weaponStats = new();
 
     //more refs to weapon data
 
-    internal EnemyStatTupel getEnemyOfName(string incomingName)
+    public static EnemyStatTupel GetEnemyOfName(string incomingName)
     {
-        foreach (EnemyStatTupel entry in enemyEntries)
+        GetInstance();
+        foreach (EnemyStatTupel entry in _instance.enemyEntries)
         {
             if (entry.name == incomingName)
             {
@@ -47,32 +44,32 @@ public class DS_Data
             }
         }
         Debug.Log("Did NOT find an enemy for name \"" + incomingName + "\". Please fix phase entries!\nReturning first entry available");
-        return enemyEntries[0];
+        return _instance.enemyEntries[0];
     }
 
     public static List<MapPhaseEntry> GetPhaseEntriesOfLevel(int level)
     {
-        _getInstance();
-        FileStream fs = new("Assets/dataressources/level"+level+"uniqueSpawns.csv", FileMode.Open);
+        GetInstance();
+        FileStream fs = new("Assets/dataressources/level"+level+"genericSpawns.csv", FileMode.Open);
         StreamReader sr = new (fs);
         List<string[]> csv = CSVSerializer.ParseCSV(sr.ReadToEnd());
         sr.Close();
         fs.Close();
-        List<MapPhaseEntry> r = new List<MapPhaseEntry>();
+        List<MapPhaseEntry> r = new ();
         for (int i = 1; i < csv.Count; i++)
         {
             r.Add(new MapPhaseEntry());
             r.Last().phase = int.Parse(csv[i][0]);
             r.Last().enemy = csv[i][1];
-            r.Last().weight = int.Parse(csv[i][2]);
+            r.Last().weight = int.Parse(csv[i][2],NumberStyles.Integer);
 
         }
         return r;
     }
 
-    public static WeaponStatsTupel getWeaponEntry(weapontype type, int level)
+    public static WeaponStatsTupel GetWeaponEntry(weapontype type, int level)
     {
-        foreach(WeaponStatsTupel tupel in _getInstance().weaponStats)
+        foreach(WeaponStatsTupel tupel in GetInstance().weaponStats)
         {
             if (tupel.type == type && tupel.level == level) return tupel;
         }

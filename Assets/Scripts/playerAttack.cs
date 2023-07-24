@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
     private playerScript player; // Reference to the playerScript
     public WeaponStatsTupel wData;
-    public float attackStrength;
-    public float knockbackStrength;
     public float projectileDuration = 3f;
-    private float currentDuration = 0f;
+    public float currentDuration = 0f;
     public List<GenericEnemy> hitEnemies;
+    public List<GenericEnemy> registerBuffer;
 
     private void Start()
     {
         // Get the playerScript component from the player object
     }
 
+    private void FixedUpdate()
+    {
+        while (registerBuffer.Count > 0)
+        {
+            hitEnemies.Add(registerBuffer[0]);
+            registerBuffer.RemoveAt(0);
+        }
+    }
     private void Update()
     {
         // Increase the current duration of the projectile
@@ -43,7 +50,7 @@ public class playerAttack : MonoBehaviour
     public void RegisterHitEnemy(GenericEnemy enemy)
     {
         // Store the hit enemy and perform any necessary actions
-        hitEnemies.Add(enemy);
+        registerBuffer.Add(enemy);
     }
 
     public bool IsRegistered(GenericEnemy enemy)

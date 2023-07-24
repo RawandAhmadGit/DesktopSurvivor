@@ -8,15 +8,17 @@ internal class HeldWeapon
     public playerScript holder;
     public float remainingCooldown;
     public WeaponStatsTupel wData;
+    private GameObject Prefab;
 
-    public HeldWeapon(WeaponStatsTupel entry, playerScript holder)
+    public HeldWeapon(WeaponStatsTupel tupel, playerScript holder, GameObject Prefab)
     {
-        wData = entry;
+        wData = tupel;
         this.holder = holder;
         remainingCooldown = 1;
+        this.Prefab = Prefab;
     }
 
-    public void Update(UnityEngine.GameObject incomingPrefab)
+    public void Update()
     {
         remainingCooldown -= Time.deltaTime;
         if (remainingCooldown == float.PositiveInfinity)
@@ -24,18 +26,18 @@ internal class HeldWeapon
 
         if (remainingCooldown < 0)
         {
-            Fire(incomingPrefab);
+            Fire();
             remainingCooldown = GetNextCooldown();
         }
     }
 
-    private void Fire(UnityEngine.GameObject incoming)
+    private void Fire()
     {
         for (int i = 0; i<wData.projectileCount + holder.projectilecountModifier; i++)
         {
 
-            UnityEngine.GameObject newObject = UnityEngine.GameObject.Instantiate(incoming, holder.transform.position, Quaternion.identity);
-            newObject.GetComponent<playerAttack>().wData = this.wData;
+            UnityEngine.GameObject newObject = UnityEngine.GameObject.Instantiate(Prefab, holder.transform.position, Quaternion.identity);
+            newObject.GetComponent<PlayerAttack>().wData = this.wData;
         }
         return;
     }

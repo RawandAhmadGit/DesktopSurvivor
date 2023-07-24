@@ -6,11 +6,11 @@ public class CDROM : MonoBehaviour
 {
     GameObject targetEnemy;
     Vector2 flyingDirection;
-    playerAttack PlayerAttack;
+    PlayerAttack playerAttack;
     // Start is called before the first frame update
     void Start()
     {
-        PlayerAttack = gameObject.GetComponent<playerAttack>();
+        playerAttack = gameObject.GetComponent<PlayerAttack>();
         AquireRandomTarget();
         flyingDirection = (targetEnemy.transform.position - gameObject.transform.position).normalized;
     }
@@ -25,7 +25,7 @@ public class CDROM : MonoBehaviour
     void Update()
     {
         Vector3 frameMove = flyingDirection.normalized;
-        frameMove *= (PlayerAttack.wData.projectileSpeed * Time.deltaTime);
+        frameMove *= (playerAttack.wData.projectileSpeed * Time.deltaTime);
         transform.position += frameMove;
         transform.Rotate(Vector3.forward, 720 * Time.deltaTime);
         if (targetEnemy == null)
@@ -39,8 +39,11 @@ public class CDROM : MonoBehaviour
         //Debug.Log("Trigger Enter called");
         if (collision.gameObject == targetEnemy)
         {
+            playerAttack.hitEnemies.Clear();
+            playerAttack.RegisterHitEnemy(targetEnemy.GetComponent<GenericEnemy>());
             AquireRandomTarget();
             flyingDirection = (targetEnemy.transform.position - gameObject.transform.position).normalized;
+            playerAttack.projectileDuration -= 2;
         }
     }
 }

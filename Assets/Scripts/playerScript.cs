@@ -6,6 +6,11 @@ using System;
 
 public class playerScript : MonoBehaviour
 {
+    private float currentHP = 64;
+    private float maxHP = 64;
+    [SerializeField]
+    private int xp = 0;
+    private int level = 1;
     private const float baseMoveSpeed = 3f;
     private const float minimumSpeed = 1f;
     private float attackMultiplier = 1;
@@ -20,7 +25,7 @@ public class playerScript : MonoBehaviour
     private float projectilesizeModifier = 1;
     private float projectilespeedModifier = 1;
     private List<HeldWeapon> heldWeapons = new();
-    public DS_Data dataHolder;
+    public GameObject prefab_LEVEL_UP;
     public UnityEngine.GameObject prefab_CDROM;
 
 
@@ -35,7 +40,7 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        heldWeapons.Add(new HeldWeapon(DS_Data.getWeaponEntry(weapontype.CDRom, 1),this));
+        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(weapontype.CDRom, 1),this,prefab_CDROM));
     }
 
     // Update is called once per frame
@@ -84,10 +89,7 @@ public class playerScript : MonoBehaviour
         gameObject.transform.Translate(_frameAccel);
         foreach (HeldWeapon w in heldWeapons)
         {
-            if (w.wData.type == weapontype.CDRom)
-            {
-                w.Update(prefab_CDROM);
-            }
+            w.Update();
         }
     }
 
@@ -108,5 +110,21 @@ public class playerScript : MonoBehaviour
     {
         print("ouch!");
         //TODO
+    }
+
+    internal void GetXp(float expYield)
+    {
+        this.xp += (int)expYield;
+        while (xp >= xpNeeded())
+        {
+            xp -= xpNeeded();
+            level++;
+            Instantiate(prefab_LEVEL_UP, transform.position, quaternion.identity);
+        }
+    }
+
+    private int xpNeeded()
+    {
+        return 8 + (2 * level);
     }
 }

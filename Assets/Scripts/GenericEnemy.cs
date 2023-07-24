@@ -53,6 +53,7 @@ public class GenericEnemy : MonoBehaviour
     private bool _isDead = false;
     private bool hasBeenHit = false;
     private Vector3 currentPosition; // Variable to store the enemy's current position
+    private float destructionTimer = 1;
 
 
     // Start is called before the first frame update
@@ -64,22 +65,25 @@ public class GenericEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 target = thePlayer.GetComponent<Transform>().position;
-        Vector3 connectionLine = target - gameObject.transform.position;
-        connectionLine.Normalize();
-        connectionLine *= speed * Time.deltaTime;
-        if (_isDead) connectionLine *= -1; //if the enemy is dead, they move away from the player instead
-        gameObject.transform.Translate(connectionLine);
-        if (_isDead)
+        if (!_isDead)
         {
-            //any updates that have to be done while the enemy is dead but not yet deleted (aka death animation)
+            Vector3 target = thePlayer.GetComponent<Transform>().position;
+            Vector3 connectionLine = target - gameObject.transform.position;
+            connectionLine.Normalize();
+            connectionLine *= speed * Time.deltaTime;
+            if (_isDead) connectionLine *= -1; //if the enemy is dead, they move away from the player instead
+            gameObject.transform.Translate(connectionLine);
+            _attackCooldown -= Time.deltaTime;
         }
         else
         {
-            _attackCooldown -= Time.deltaTime;
-
-            //TODO perish
-
+            destructionTimer -= Time.deltaTime;
+            transform.Rotate(0,0,360 * Time.deltaTime);
+            transform.localScale *= Mathf.Pow(0.1f, Time.deltaTime);
+            if (destructionTimer < 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -110,14 +114,17 @@ public class GenericEnemy : MonoBehaviour
 
         if (collision.gameObject.CompareTag("PlayerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
         {
-            Debug.Log("I got hit by a player attack");
-            TakeDamage(collision.gameObject.GetComponent<playerAttack>().attackStrength);
-            TakeKnockback(collision.gameObject.GetComponent<playerAttack>().knockbackStrength);
-            collision.GetComponent<playerAttack>().RegisterHitEnemy(this);
-            GameObject newDmgNumber = Instantiate(damageNumbersPrefab, transform.position, Quaternion.identity);
-            //for some reason I cant get past this ^ instantiate
-            Debug.Log("I got past instantiate");
-            newDmgNumber.GetComponent<TextMesh>().text = damageNumbersPrefab.ToString();
+            PlayerAttack pa = collision.gameObject.GetComponent<PlayerAttack>();
+            if (!collision.GetComponent<PlayerAttack>().IsRegistered(this))
+            {
+                Debug.Log("I got hit by a player attack");
+                TakeDamage(pa.wData.damage);
+                TakeKnockback(pa.wData.knockback);
+                pa.RegisterHitEnemy(this);
+                GameObject newDmgNumber = Instantiate(damageNumbersPrefab, transform.position, Quaternion.identity);
+                //for some reason I cant get past this ^ instantiate
+                newDmgNumber.GetComponent<TextMesh>().text = pa.wData.damage.ToString();
+            }
         }
     }
 
@@ -125,62 +132,25 @@ public class GenericEnemy : MonoBehaviour
     private void TakeDamage(float incomingDamage)
     {
         this._currentHP -= incomingDamage;
-        if (_currentHP < 0)
+        if (_currentHP <= 0)
         {
             _currentHP = 0;
             die();
         }
 
+
         // Show the damage numbers
         //ShowDamageNumbers(incomingDamage);
     }
 
-    private void ShowDamageNumbers(float damage)
-    {
-        // Instantiate the damage numbers GameObject
-        GameObject damageNumbersObject = Instantiate(damageNumbersPrefab, transform.position, Quaternion.identity);
+    
 
-        // Set the parent of the instantiated damage numbers GameObject to the "DamageNumbers" parent object
-        damageNumbersObject.transform.SetParent(damageNumbersPrefab.transform.parent, false);
-
-        // Get the TextMeshPro component from the instantiated damage numbers GameObject
-        TextMeshPro damageText = damageNumbersObject.GetComponent<TextMeshPro>();
-
-        // Display the damage on the damage numbers
-        damageText.text = damage.ToString();
-
-        // Apply the offset to the position
-        Vector3 position = transform.position + new Vector3(offset.x, offset.y, 0f);
-        damageNumbersObject.transform.position = position;
-
-        // Start the coroutine to fade out and destroy the damage numbers GameObject
-        StartCoroutine(FadeOutDamageNumbers(damageNumbersObject));
-    }
-
-    private IEnumerator FadeOutDamageNumbers(GameObject damageNumbersObject)
-    {
-        // Get the TextMeshPro component from the damage numbers GameObject
-        TextMeshPro damageText = damageNumbersObject.GetComponent<TextMeshPro>();
-
-        // Wait for a brief duration before starting the fade-out
-        yield return new WaitForSeconds(displayDuration);
-
-        // Fade out the damage numbers
-        while (damageText.color.a > 0)
-        {
-            Color color = damageText.color;
-            color.a -= fadeSpeed * Time.deltaTime;
-            damageText.color = color;
-            yield return null;
-        }
-
-        // Destroy the damage numbers GameObject
-        Destroy(damageNumbersObject);
-    }
+    
 
     private void die()
     {
-        //TODO
+        _isDead = true;
+        thePlayer.GetComponent<playerScript>().GetXp(_expYield);
     }
 
     private void TakeKnockback(float incomingKnockback)

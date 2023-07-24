@@ -170,9 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf7e0ce2ec5c1740b6d50e3d52f8b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xp: 0
   attackspeedModifier: 1
   projectilecountModifier: 0
-  dataHolder: {fileID: 1246064986}
+  prefab_LEVEL_UP: {fileID: 7584387625902084568, guid: 2ca7872d980dccf44a3d3f67b58ac98e, type: 3}
   prefab_CDROM: {fileID: 221821331815197169, guid: b59cfb27c388d314f9e94dbd9ca88c2c, type: 3}
 --- !u!212 &94143754
 SpriteRenderer:
@@ -237,9 +238,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1186906137}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1144688729
 GameObject:
@@ -307,7 +309,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1186906134
 GameObject:
@@ -385,12 +387,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186906134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 94143755}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1221916101
@@ -439,54 +441,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1246064985
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1246064987}
-  - component: {fileID: 1246064986}
-  m_Layer: 0
-  m_Name: BalanceParameters
-  m_TagString: BalanceParameter
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1246064986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246064985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba01ca4b0b58c734697ce9ed3898ccbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  refToEnemyDataCSV: {fileID: 4900000, guid: 7c23b3a368b5bd346b5566651d05ddf0, type: 3}
-  refToPhaseDataCSV: {fileID: 4900000, guid: 840ea83bc5bf9ed4d81e73679e954351, type: 3}
-  refToWeaponData: {fileID: 4900000, guid: 761f1b8897a2c7e4186ee8c6f6bacf49, type: 3}
---- !u!4 &1246064987
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246064985}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &36558296430902381
 RectTransform:
@@ -501,7 +456,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
