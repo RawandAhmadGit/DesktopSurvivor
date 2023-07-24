@@ -7,9 +7,9 @@ internal class HeldWeapon
 {
     public playerScript holder;
     public float remainingCooldown;
-    public WeaponEntry wData;
+    public WeaponStatsTupel wData;
 
-    public HeldWeapon(WeaponEntry entry, playerScript holder)
+    public HeldWeapon(WeaponStatsTupel entry, playerScript holder)
     {
         wData = entry;
         this.holder = holder;

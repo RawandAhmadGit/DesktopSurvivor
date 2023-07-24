@@ -20,7 +20,7 @@ public class playerScript : MonoBehaviour
     private float projectilesizeModifier = 1;
     private float projectilespeedModifier = 1;
     private List<HeldWeapon> heldWeapons = new();
-    public DataHolder dataHolder;
+    public DS_Data dataHolder;
     public UnityEngine.GameObject prefab_CDROM;
 
 

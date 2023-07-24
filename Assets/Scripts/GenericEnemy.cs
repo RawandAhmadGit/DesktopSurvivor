@@ -84,7 +84,7 @@ public class GenericEnemy : MonoBehaviour
     }
 
 
-    public void defineEnemyType(EnemyEntry incomingData, bool isBoss)
+    public void defineEnemyType(EnemyStatTupel incomingData, bool isBoss)
     {
 
         this._attackStrength = incomingData.attack;

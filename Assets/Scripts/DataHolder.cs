@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyEntry
+public class EnemyStatTupel
 {
     public string name;
     public float hp;
@@ -15,28 +16,29 @@ public class EnemyEntry
     public float knockback;
 }
 
-public class DataHolder : MonoBehaviour
+public class DS_Data
 {
+    private DS_Data _instance;
     [SerializeField]
-    public TextAsset refToEnemyDataCSV;
-    public List<EnemyEntry> enemyEntries = new List<EnemyEntry>();
-    public TextAsset refToPhaseDataCSV;
+    private TextAsset refToEnemyDataCSV;
+    private List<EnemyStatTupel> enemyEntries = new List<EnemyStatTupel>();
+    private TextAsset refToPhaseDataCSV;
 
-    public TextAsset refToWeaponData;
-    public List<WeaponEntry> weaponEntries = new List<WeaponEntry>();
+    private TextAsset refToWeaponData;
+    private List<WeaponStatsTupel> weaponStats = new List<WeaponStatsTupel>();
 
     //more refs to weapon data
 
-    internal EnemyEntry getEnemyOfName(string incomingName)
+    internal EnemyStatTupel getEnemyOfName(string incomingName)
     {
-        foreach (EnemyEntry entry in enemyEntries)
+        foreach (EnemyStatTupel entry in enemyEntries)
         {
             if (entry.name == incomingName)
             {
                 return entry;
             }
         }
-        print("Did NOT find an enemy for name \"" + incomingName + "\". Please fix phase entries!\nReturning first entry available");
+        Debug.Log("Did NOT find an enemy for name \"" + incomingName + "\". Please fix phase entries!\nReturning first entry available");
         return enemyEntries[0];
     }
 
@@ -55,22 +57,26 @@ public class DataHolder : MonoBehaviour
         return r;
     }
 
-    internal WeaponEntry getWeaponEntry(weapontype type, int level)
+    static WeaponStatsTupel getWeaponEntry(weapontype type, int level)
     {
-        foreach(WeaponEntry entry in weaponEntries)
+        foreach(WeaponStatsTupel tupel in _instance.weaponStats)
         {
-            if (entry.type == type && entry.level == level) return entry;
+            if (tupel.type == type && tupel.level == level) return tupel;
         }
-        print("getWeaponEntry() no weapon found! Returning firts entry");
-        return weaponEntries[0];
+        Debug.Log("getWeaponEntry() no weapon found! Returning firts entry");
+        return weaponStats[0];
     }
 
-    void Awake()
+    DS_Data()
     {
-        List<string[]> parsed = CSVSerializer.ParseCSV(refToEnemyDataCSV.text);
+        FileStream fs = new("Assets/dataressources/Enemystats.csv", FileMode.Open);
+        StreamReader sr =  new (fs);
+        List<string[]> parsed = CSVSerializer.ParseCSV(sr.ReadToEnd());
+        sr.Close();
+        fs.Close();
         for (int i = 1; i < parsed.Count; i++)
         {
-            this.enemyEntries.Add(new EnemyEntry());
+            this.enemyEntries.Add(new EnemyStatTupel());
             enemyEntries.Last().name = parsed[i][0];
             enemyEntries.Last().hp = float.Parse(parsed[i][1], CultureInfo.InvariantCulture);
             enemyEntries.Last().attack = float.Parse(parsed[i][2], CultureInfo.InvariantCulture);
@@ -79,17 +85,16 @@ public class DataHolder : MonoBehaviour
             enemyEntries.Last().knockback = float.Parse(parsed[i][5], CultureInfo.InvariantCulture);
 
         };
-        List<string[]> weaponCSV = CSVSerializer.ParseCSV(refToWeaponData.text);
+        fs = new FileStream("Assets/dataressources/weaponstats.csv", FileMode.Open);
+        sr = new (fs);
+        List<string[]> weaponCSV = CSVSerializer.ParseCSV(sr.ReadToEnd());
+        sr.Close();
+        fs.Close();
         for (int i = 1; i< weaponCSV.Count; i++)
         {
-            weaponEntries.Add(new WeaponEntry(weaponCSV[i]));
+            weaponStats.Add(new WeaponStatsTupel(weaponCSV[i]));
         }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

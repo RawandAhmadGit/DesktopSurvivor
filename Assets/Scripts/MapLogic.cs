@@ -22,7 +22,7 @@ public class MapLogic : MonoBehaviour
     void Start()
     {
         // Assign the prefab manually
-        phaseEntries = GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().GetPhaseEntriesOfLevel(level);
+        phaseEntries = GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DS_Data>().GetPhaseEntriesOfLevel(level);
     }
 
     void Update()
@@ -54,7 +54,7 @@ public class MapLogic : MonoBehaviour
         mapUnpaused = false;
     }
 
-    private EnemyEntry getViableEnemyEntry()
+    private EnemyStatTupel getViableEnemyEntry()
     {
         //first we create a weighted list of all viable enemies for this phase
         List<MapPhaseEntry> weightedList = new();
@@ -69,7 +69,7 @@ public class MapLogic : MonoBehaviour
         }
         //now we choose a random phaseEntry from the weighted lsit and get a corresponding enemyEntry
         string enemyName = weightedList[Random.Range(0, weightedList.Count)].enemy;
-        return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().getEnemyOfName(enemyName);
+        return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DS_Data>().getEnemyOfName(enemyName);
 
         //return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries[Random.Range(0, GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries.Count)];
 }
