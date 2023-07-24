@@ -79,7 +79,10 @@ public class GenericEnemy : MonoBehaviour
         {
             destructionTimer -= Time.deltaTime;
             transform.Rotate(0,0,360 * Time.deltaTime);
-            transform.localScale *= Mathf.Pow(0.1f, Time.deltaTime);
+            transform.localScale = new Vector3(
+                transform.localScale.x - Time.deltaTime,
+                transform.localScale.y - Time.deltaTime,
+                transform.localScale.z);
             if (destructionTimer < 0)
             {
                 Destroy(gameObject);
