@@ -10,6 +10,7 @@ public class playerScript : MonoBehaviour
     private float maxHP = 64;
     [SerializeField]
     private int xp = 0;
+    [SerializeField]
     private int level = 1;
     private const float baseMoveSpeed = 3f;
     private const float minimumSpeed = 1f;
@@ -40,7 +41,7 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(weapontype.CDRom, 8),this,prefab_CDROM));
+        GainWeapon(weapontype.CDRom);
     }
 
     // Update is called once per frame
@@ -120,6 +121,7 @@ public class playerScript : MonoBehaviour
             xp -= xpNeeded();
             level++;
             Instantiate(prefab_LEVEL_UP, transform.position, quaternion.identity);
+            GainWeapon(weapontype.CDRom);
         }
     }
 
@@ -131,6 +133,10 @@ public class playerScript : MonoBehaviour
     public void GainWeapon(weapontype type)
     {
         if (heldWeapons.Count >= 6) return;
+        if (heldWeapons.Count == 0){
+            heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(type, 1), this, GetPrefabForType(type))); 
+            return; 
+        }
         foreach (HeldWeapon w in heldWeapons)
         {
             if(w.wData.type == type && w.wData.level < 8)
@@ -139,11 +145,15 @@ public class playerScript : MonoBehaviour
                 return;
             }
         }
-        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(type, 1), this, GetPrefabForType()));
+        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(type, 1), this, GetPrefabForType(type)));
     }
 
-    private GameObject GetPrefabForType()
+    private GameObject GetPrefabForType(weapontype type)
     {
-        throw new NotImplementedException(); //TODO: link all the prefabs. Or create them in the first place
+        switch (type)
+        {
+            case weapontype.CDRom: return prefab_CDROM;
+        }
+        return null;
     }
 }

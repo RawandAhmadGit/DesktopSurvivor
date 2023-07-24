@@ -31,6 +31,7 @@ public class MapLogic : MonoBehaviour
     {
         if (mapUnpaused)
         {
+            mapTime += Time.deltaTime;
             if (timeUntilNextSpawn <=  0)
             {
                 timeUntilNextSpawn = 4f;
