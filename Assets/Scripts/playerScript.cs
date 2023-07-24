@@ -35,7 +35,7 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        heldWeapons.Add(new HeldWeapon(dataHolder.getWeaponEntry(weapontype.CDRom, 1),this));
+        heldWeapons.Add(new HeldWeapon(DS_Data.getWeaponEntry(weapontype.CDRom, 1),this));
     }
 
     // Update is called once per frame

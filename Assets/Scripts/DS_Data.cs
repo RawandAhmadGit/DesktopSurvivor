@@ -18,7 +18,15 @@ public class EnemyStatTupel
 
 public class DS_Data
 {
-    private DS_Data _instance;
+    private static DS_Data _instance;
+    private static DS_Data _getInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new DS_Data();
+        }
+        return _instance;
+    }
     [SerializeField]
     private TextAsset refToEnemyDataCSV;
     private List<EnemyStatTupel> enemyEntries = new List<EnemyStatTupel>();
@@ -42,9 +50,14 @@ public class DS_Data
         return enemyEntries[0];
     }
 
-    internal List<MapPhaseEntry> GetPhaseEntriesOfLevel(int level)
+    public static List<MapPhaseEntry> GetPhaseEntriesOfLevel(int level)
     {
-        List<string[]> csv = CSVSerializer.ParseCSV(refToPhaseDataCSV.text);
+        _getInstance();
+        FileStream fs = new("Assets/dataressources/level"+level+"uniqueSpawns.csv", FileMode.Open);
+        StreamReader sr = new (fs);
+        List<string[]> csv = CSVSerializer.ParseCSV(sr.ReadToEnd());
+        sr.Close();
+        fs.Close();
         List<MapPhaseEntry> r = new List<MapPhaseEntry>();
         for (int i = 1; i < csv.Count; i++)
         {
@@ -57,14 +70,14 @@ public class DS_Data
         return r;
     }
 
-    static WeaponStatsTupel getWeaponEntry(weapontype type, int level)
+    public static WeaponStatsTupel getWeaponEntry(weapontype type, int level)
     {
-        foreach(WeaponStatsTupel tupel in _instance.weaponStats)
+        foreach(WeaponStatsTupel tupel in _getInstance().weaponStats)
         {
             if (tupel.type == type && tupel.level == level) return tupel;
         }
         Debug.Log("getWeaponEntry() no weapon found! Returning firts entry");
-        return weaponStats[0];
+        return _instance.weaponStats[0];
     }
 
     DS_Data()
