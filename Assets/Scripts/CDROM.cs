@@ -43,7 +43,7 @@ public class CDROM : MonoBehaviour
             playerAttack.RegisterHitEnemy(targetEnemy.GetComponent<GenericEnemy>());
             AquireRandomTarget();
             flyingDirection = (targetEnemy.transform.position - gameObject.transform.position).normalized;
-            playerAttack.projectileDuration -= 2;
+            
         }
     }
 }

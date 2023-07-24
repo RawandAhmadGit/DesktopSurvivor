@@ -127,6 +127,7 @@ public class GenericEnemy : MonoBehaviour
                 GameObject newDmgNumber = Instantiate(damageNumbersPrefab, transform.position, Quaternion.identity);
                 //for some reason I cant get past this ^ instantiate
                 newDmgNumber.GetComponent<TextMesh>().text = pa.wData.damage.ToString();
+                pa.remainingHits--;
             }
         }
     }

@@ -6,14 +6,17 @@ public class PlayerAttack : MonoBehaviour
 {
     private playerScript player; // Reference to the playerScript
     public WeaponStatsTupel wData;
-    public float projectileDuration = 3f;
+    private float projectileDuration;
     public float currentDuration = 0f;
     public List<GenericEnemy> hitEnemies;
     public List<GenericEnemy> registerBuffer;
+    public int remainingHits;
 
     private void Start()
     {
         // Get the playerScript component from the player object
+        remainingHits = wData.maxTargets;
+        projectileDuration = wData.maxDuration;
     }
 
     private void FixedUpdate()
@@ -31,6 +34,10 @@ public class PlayerAttack : MonoBehaviour
 
         // Check if the projectile exceeds the maximum duration
         if (currentDuration >= projectileDuration)
+        {
+            Destroy(gameObject);
+        }
+        if (remainingHits <= 0) //or has no hits remaining
         {
             Destroy(gameObject);
         }
