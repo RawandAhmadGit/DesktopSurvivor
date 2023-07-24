@@ -40,7 +40,7 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(weapontype.CDRom, 1),this,prefab_CDROM));
+        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(weapontype.CDRom, 8),this,prefab_CDROM));
     }
 
     // Update is called once per frame
@@ -126,5 +126,24 @@ public class playerScript : MonoBehaviour
     private int xpNeeded()
     {
         return 8 + (2 * level);
+    }
+
+    public void GainWeapon(weapontype type)
+    {
+        if (heldWeapons.Count >= 6) return;
+        foreach (HeldWeapon w in heldWeapons)
+        {
+            if(w.wData.type == type && w.wData.level < 8)
+            {
+                w.wData = DS_Data.GetWeaponEntry(type, w.wData.level + 1);
+                return;
+            }
+        }
+        heldWeapons.Add(new HeldWeapon(DS_Data.GetWeaponEntry(type, 1), this, GetPrefabForType()));
+    }
+
+    private GameObject GetPrefabForType()
+    {
+        throw new NotImplementedException(); //TODO: link all the prefabs. Or create them in the first place
     }
 }
