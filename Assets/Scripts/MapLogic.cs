@@ -33,11 +33,12 @@ public class MapLogic : MonoBehaviour
         {
             if (timeUntilNextSpawn <=  0)
             {
+                timeUntilNextSpawn = 4f;
                 const float spawnRadius = 10;
                 Vector3 newEnemyPos = ((Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius) + thePlayer.transform.position;
                 GameObject newestEnemy = Instantiate(toBeSpawned, newEnemyPos, Quaternion.identity);
-                newestEnemy.GetComponent<GenericEnemy>().defineEnemyType(getViableEnemyEntry(),false);
-                timeUntilNextSpawn = 4f;
+                newestEnemy.GetComponent<GenericEnemy>().defineEnemyType(GetViableEnemyEntry(),false);
+                
             }
             else
             {
@@ -56,12 +57,12 @@ public class MapLogic : MonoBehaviour
         mapUnpaused = false;
     }
 
-    private EnemyStatTupel getViableEnemyEntry()
+    private EnemyStatTupel GetViableEnemyEntry()
     {
         //first we create a weighted list of all viable enemies for this phase
         List<MapPhaseEntry> weightedList = new();
         for (int iteratorPhaseEntries = 0;iteratorPhaseEntries < phaseEntries.Count; iteratorPhaseEntries++) { 
-            if (phaseEntries[iteratorPhaseEntries].phase == getCurrentPhase())
+            if (phaseEntries[iteratorPhaseEntries].phase == GetCurrentPhase())
             {
                 for (int  iteratorWeightCounter = 0;iteratorWeightCounter < phaseEntries[iteratorPhaseEntries].weight; iteratorWeightCounter++)
                 {
@@ -76,7 +77,7 @@ public class MapLogic : MonoBehaviour
         //return GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries[Random.Range(0, GameObject.FindGameObjectWithTag("BalanceParameter").GetComponent<DataHolder>().enemyEntries.Count)];
 }
 
-    private int getCurrentPhase()
+    private int GetCurrentPhase()
     {
         return Mathf.FloorToInt(mapTime / 150f) + 1;
     }
