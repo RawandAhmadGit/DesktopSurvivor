@@ -18,11 +18,13 @@ public class MapLogic : MonoBehaviour
     private bool mapUnpaused = true;
 
     private List<MapPhaseEntry> phaseEntries = new();
+    playerScript thePlayer;
 
     void Start()
     {
         // Assign the prefab manually
         phaseEntries = DS_Data.GetPhaseEntriesOfLevel(level);
+        thePlayer = FindObjectOfType<playerScript>();
     }
 
     void Update()
@@ -32,7 +34,7 @@ public class MapLogic : MonoBehaviour
             if (timeUntilNextSpawn <=  0)
             {
                 const float spawnRadius = 10;
-                Vector3 newEnemyPos = (Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius;
+                Vector3 newEnemyPos = ((Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius) + thePlayer.transform.position;
                 GameObject newestEnemy = Instantiate(toBeSpawned, newEnemyPos, Quaternion.identity);
                 newestEnemy.GetComponent<GenericEnemy>().defineEnemyType(getViableEnemyEntry(),false);
                 timeUntilNextSpawn = 4f;
