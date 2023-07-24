@@ -44,6 +44,6 @@ internal class HeldWeapon
 
     public float GetNextCooldown()
     {
-        return 60/wData.fireRate/holder.attackspeedModifier;
+        return 60/(wData.fireRate * holder.attackspeedModifier);
     }
 }
