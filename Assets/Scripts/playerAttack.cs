@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private playerScript player; // Reference to the playerScript
+    private PlayerScript player; // Reference to the playerScript
     public WeaponStatsTupel wData;
     private float projectileDuration;
     public float currentDuration = 0f;

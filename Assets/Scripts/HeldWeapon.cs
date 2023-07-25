@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 internal class HeldWeapon
 {
-    public playerScript holder;
+    public PlayerScript holder;
     public float remainingCooldown;
     public WeaponStatsTupel wData;
     private GameObject Prefab;
 
-    public HeldWeapon(WeaponStatsTupel tupel, playerScript holder, GameObject Prefab)
+    public HeldWeapon(WeaponStatsTupel tupel, PlayerScript holder, GameObject Prefab)
     {
         wData = tupel;
         this.holder = holder;

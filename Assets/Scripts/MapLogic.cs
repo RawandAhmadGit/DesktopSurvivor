@@ -18,13 +18,13 @@ public class MapLogic : MonoBehaviour
     private bool mapUnpaused = true;
 
     private List<MapPhaseEntry> phaseEntries = new();
-    playerScript thePlayer;
+    PlayerScript thePlayer;
 
     void Start()
     {
         // Assign the prefab manually
         phaseEntries = DS_Data.GetPhaseEntriesOfLevel(level);
-        thePlayer = FindObjectOfType<playerScript>();
+        thePlayer = FindObjectOfType<PlayerScript>();
     }
 
     void Update()

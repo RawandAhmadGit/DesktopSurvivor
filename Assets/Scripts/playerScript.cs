@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using System;
+using UnityEngine.Events;
 
-public class playerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     private float currentHP = 64;
+    private bool isDead = false;
     private float maxHP = 64;
     [SerializeField]
     private int xp = 0;
     [SerializeField]
     private int level = 1;
+    private float defense = 0;
     private const float baseMoveSpeed = 3f;
     private const float minimumSpeed = 1f;
     private float attackMultiplier = 1;
@@ -29,6 +32,8 @@ public class playerScript : MonoBehaviour
     public GameObject prefab_LEVEL_UP;
     public UnityEngine.GameObject prefab_CDROM;
 
+    public UnityEvent playerDeath;
+
 
     private float EffectiveSpeed()
     {
@@ -42,6 +47,7 @@ public class playerScript : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         GainWeapon(weapontype.CDRom);
+        playerDeath.AddListener(Die);
     }
 
     // Update is called once per frame
@@ -109,8 +115,12 @@ public class playerScript : MonoBehaviour
 
     private void takeDamage(float value)
     {
-        print("ouch!");
-        //TODO
+        value = value - defense;
+        currentHP -= value;
+        if (currentHP <= 0)
+        {
+            playerDeath.Invoke();
+        }
     }
 
     internal void GetXp(float expYield)
@@ -155,5 +165,12 @@ public class playerScript : MonoBehaviour
             case weapontype.CDRom: return prefab_CDROM;
         }
         return null;
+    }
+
+    private void Die()
+    {
+        heldWeapons.Clear();
+        isDead = true;
+        moveSpeedStatMultiplier = 0;
     }
 }

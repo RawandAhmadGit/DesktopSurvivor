@@ -154,7 +154,7 @@ public class GenericEnemy : MonoBehaviour
     private void die()
     {
         _isDead = true;
-        thePlayer.GetComponent<playerScript>().GetXp(_expYield);
+        thePlayer.GetComponent<PlayerScript>().GetXp(_expYield);
     }
 
     private void TakeKnockback(float incomingKnockback)
@@ -171,7 +171,7 @@ public class GenericEnemy : MonoBehaviour
         this._attackCooldown = 1;
     }
 
-    public bool CanAttack(playerScript playerScript)
+    public bool CanAttack(PlayerScript playerScript)
     {
         return this._attackCooldown <= 0;
     }
