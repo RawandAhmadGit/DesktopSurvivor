@@ -26,6 +26,7 @@ public class Firewall : MonoBehaviour
         scale.y *= playerAttack.wData.size2;
         transform.localScale = scale;
         transform.Rotate(new Vector3(0, 0, (Mathf.Rad2Deg * direction)-90));
+        transform.Translate(0, 0, 2);
     }
 
     // Update is called once per frame
