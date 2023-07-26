@@ -1,20 +1,17 @@
 using UnityEngine;
 
-public class CenterCamera : MonoBehaviour
-{
+public class CenterCamera : MonoBehaviour {
     public Transform player;
     public float smoothSpeed = 0.5f;
 
     private Vector3 offset;
 
-    private void Start()
-    {
+    private void Start() {
         // Calculate the initial offset between the camera and the player
         offset = transform.position - player.position;
     }
 
-    private void LateUpdate()
-    {
+    private void LateUpdate() {
         // Calculate the desired position of the camera
         Vector3 desiredPosition = player.position + offset;
 

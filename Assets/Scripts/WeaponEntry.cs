@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 
-public enum weapontype
-{
+public enum weapontype {
     MousePointer,
     CDRom,
     Resizer,
@@ -9,8 +8,7 @@ public enum weapontype
     FireWall
 }
 
-public class WeaponStatsTupel
-{
+public class WeaponStatsTupel {
     public weapontype type;
     const int colWeapontype = 0;
     public int level;
@@ -36,14 +34,13 @@ public class WeaponStatsTupel
     public float size2;
     const int colSize2 = 11;
 
-    public WeaponStatsTupel(string[] line)
-    {
+    public WeaponStatsTupel(string[] line) {
         type = System.Enum.Parse<weapontype>(line[colWeapontype]);
         level = int.Parse(line[colLevel], CultureInfo.InvariantCulture);
         desc = line[colDesc];
-        damage = float.Parse(line[colDamage],CultureInfo.InvariantCulture);
-        fireRate = float.Parse(line[colFireRate],CultureInfo.InvariantCulture);
-        maxTargets = int.Parse(line[colMaxTargets],CultureInfo.InvariantCulture);
+        damage = float.Parse(line[colDamage], CultureInfo.InvariantCulture);
+        fireRate = float.Parse(line[colFireRate], CultureInfo.InvariantCulture);
+        maxTargets = int.Parse(line[colMaxTargets], CultureInfo.InvariantCulture);
         projectileSpeed = float.Parse(line[colProjectileSpeed], CultureInfo.InvariantCulture);
         projectileCount = int.Parse(line[colProjectileCount], CultureInfo.InvariantCulture);
         size1 = float.Parse(line[colSize1], CultureInfo.InvariantCulture);

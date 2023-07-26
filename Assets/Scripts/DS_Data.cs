@@ -6,8 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyStatTupel
-{
+public class EnemyStatTupel {
     public string name;
     public float hp;
     public float attack;
@@ -16,13 +15,10 @@ public class EnemyStatTupel
     public float knockback;
 }
 
-public class DS_Data
-{
+public class DS_Data {
     private static DS_Data _instance;
-    private static DS_Data GetInstance()
-    {
-        if (_instance == null)
-        {
+    private static DS_Data GetInstance() {
+        if (_instance == null) {
             _instance = new DS_Data();
         }
         return _instance;
@@ -33,13 +29,10 @@ public class DS_Data
 
     //more refs to weapon data
 
-    public static EnemyStatTupel GetEnemyOfName(string incomingName)
-    {
+    public static EnemyStatTupel GetEnemyOfName(string incomingName) {
         GetInstance();
-        foreach (EnemyStatTupel entry in _instance.enemyEntries)
-        {
-            if (entry.name == incomingName)
-            {
+        foreach (EnemyStatTupel entry in _instance.enemyEntries) {
+            if (entry.name == incomingName) {
                 return entry;
             }
         }
@@ -47,45 +40,39 @@ public class DS_Data
         return _instance.enemyEntries[0];
     }
 
-    public static List<MapPhaseEntry> GetPhaseEntriesOfLevel(int level)
-    {
+    public static List<MapPhaseEntry> GetPhaseEntriesOfLevel(int level) {
         GetInstance();
-        FileStream fs = new("Assets/dataressources/level"+level+"genericSpawns.csv", FileMode.Open);
-        StreamReader sr = new (fs);
+        FileStream fs = new("Assets/dataressources/level" + level + "genericSpawns.csv", FileMode.Open);
+        StreamReader sr = new(fs);
         List<string[]> csv = CSVSerializer.ParseCSV(sr.ReadToEnd());
         sr.Close();
         fs.Close();
-        List<MapPhaseEntry> r = new ();
-        for (int i = 1; i < csv.Count; i++)
-        {
+        List<MapPhaseEntry> r = new();
+        for (int i = 1; i < csv.Count; i++) {
             r.Add(new MapPhaseEntry());
             r.Last().phase = int.Parse(csv[i][0]);
             r.Last().enemy = csv[i][1];
-            r.Last().weight = int.Parse(csv[i][2],NumberStyles.Integer);
+            r.Last().weight = int.Parse(csv[i][2], NumberStyles.Integer);
 
         }
         return r;
     }
 
-    public static WeaponStatsTupel GetWeaponEntry(weapontype type, int level)
-    {
-        foreach(WeaponStatsTupel tupel in GetInstance().weaponStats)
-        {
+    public static WeaponStatsTupel GetWeaponEntry(weapontype type, int level) {
+        foreach (WeaponStatsTupel tupel in GetInstance().weaponStats) {
             if (tupel.type == type && tupel.level == level) return tupel;
         }
         Debug.Log("getWeaponEntry() no weapon found! Returning firts entry");
         return _instance.weaponStats[0];
     }
 
-    DS_Data()
-    {
+    DS_Data() {
         FileStream fs = new("Assets/dataressources/Enemystats.csv", FileMode.Open);
-        StreamReader sr =  new (fs);
+        StreamReader sr = new(fs);
         List<string[]> parsed = CSVSerializer.ParseCSV(sr.ReadToEnd());
         sr.Close();
         fs.Close();
-        for (int i = 1; i < parsed.Count; i++)
-        {
+        for (int i = 1; i < parsed.Count; i++) {
             this.enemyEntries.Add(new EnemyStatTupel());
             enemyEntries.Last().name = parsed[i][0];
             enemyEntries.Last().hp = float.Parse(parsed[i][1], CultureInfo.InvariantCulture);
@@ -96,15 +83,14 @@ public class DS_Data
 
         };
         fs = new FileStream("Assets/dataressources/weaponstats.csv", FileMode.Open);
-        sr = new (fs);
+        sr = new(fs);
         List<string[]> weaponCSV = CSVSerializer.ParseCSV(sr.ReadToEnd());
         sr.Close();
         fs.Close();
-        for (int i = 1; i< weaponCSV.Count; i++)
-        {
+        for (int i = 1; i < weaponCSV.Count; i++) {
             weaponStats.Add(new WeaponStatsTupel(weaponCSV[i]));
         }
-        
+
     }
 
 }

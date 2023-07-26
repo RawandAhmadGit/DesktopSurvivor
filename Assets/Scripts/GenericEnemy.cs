@@ -5,8 +5,7 @@ using UnityEngine;
 using TMPro;
 
 
-public enum EnemyType
-{
+public enum EnemyType {
     //fill this with all kinds of enemies
     undefined = 0,
     worm1,
@@ -30,8 +29,7 @@ public enum EnemyType
 };
 
 
-public class GenericEnemy : MonoBehaviour
-{
+public class GenericEnemy : MonoBehaviour {
     private GameObject thePlayer;
     // Damage Numbers
     public GameObject damageNumbersPrefab;
@@ -57,16 +55,13 @@ public class GenericEnemy : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         thePlayer = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (!_isDead)
-        {
+    void Update() {
+        if (!_isDead) {
             Vector3 target = thePlayer.GetComponent<Transform>().position;
             Vector3 connectionLine = target - gameObject.transform.position;
             connectionLine.Normalize();
@@ -74,25 +69,21 @@ public class GenericEnemy : MonoBehaviour
             if (_isDead) connectionLine *= -1; //if the enemy is dead, they move away from the player instead
             gameObject.transform.Translate(connectionLine);
             _attackCooldown -= Time.deltaTime;
-        }
-        else
-        {
+        } else {
             destructionTimer -= Time.deltaTime;
-            transform.Rotate(0,0,360 * Time.deltaTime);
+            transform.Rotate(0, 0, 360 * Time.deltaTime);
             transform.localScale = new Vector3(
                 transform.localScale.x - Time.deltaTime,
                 transform.localScale.y - Time.deltaTime,
                 transform.localScale.z);
-            if (destructionTimer < 0)
-            {
+            if (destructionTimer < 0) {
                 Destroy(gameObject);
             }
         }
     }
 
 
-    public void defineEnemyType(EnemyStatTupel incomingData, bool isBoss)
-    {
+    public void defineEnemyType(EnemyStatTupel incomingData, bool isBoss) {
 
         this._attackStrength = incomingData.attack;
         this._currentHP = incomingData.hp;
@@ -101,8 +92,7 @@ public class GenericEnemy : MonoBehaviour
         this._expYield = incomingData.xp;
         this._knockbackMultiplier = incomingData.knockback;
         gameObject.GetComponent<Animator>().Play(incomingData.name);
-        if (isBoss)
-        {
+        if (isBoss) {
             _maxHP *= 10;
             _knockbackMultiplier *= 0.5f;
             _attackStrength *= 2f;
@@ -111,15 +101,13 @@ public class GenericEnemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (_isDead) return;
 
         if (collision.gameObject.CompareTag("PlayerAttack")) //if the collided object has the tag playerAttack, do damage taking stuff
         {
             PlayerAttack pa = collision.gameObject.GetComponent<PlayerAttack>();
-            if (!collision.GetComponent<PlayerAttack>().IsRegistered(this))
-            {
+            if (!collision.GetComponent<PlayerAttack>().IsRegistered(this)) {
                 Debug.Log("I got hit by a player attack");
                 TakeDamage(pa.wData.damage);
                 TakeKnockback(pa.wData.knockback);
@@ -133,11 +121,9 @@ public class GenericEnemy : MonoBehaviour
     }
 
 
-    private void TakeDamage(float incomingDamage)
-    {
+    private void TakeDamage(float incomingDamage) {
         this._currentHP -= incomingDamage;
-        if (_currentHP <= 0)
-        {
+        if (_currentHP <= 0) {
             _currentHP = 0;
             die();
         }
@@ -147,39 +133,33 @@ public class GenericEnemy : MonoBehaviour
         //ShowDamageNumbers(incomingDamage);
     }
 
-    
 
-    
 
-    private void die()
-    {
+
+
+    private void die() {
         _isDead = true;
         thePlayer.GetComponent<PlayerScript>().GetXp(_expYield);
     }
 
-    private void TakeKnockback(float incomingKnockback)
-    {
+    private void TakeKnockback(float incomingKnockback) {
         Vector2 knockbackDirection = (transform.position - thePlayer.transform.position).normalized;
         transform.Translate((Vector3)knockbackDirection * incomingKnockback * _knockbackMultiplier);
     }
 
-    public void MeleeAttack()
-    {
+    public void MeleeAttack() {
         this._attackCooldown = 1;
     }
 
-    public bool CanAttack(PlayerScript playerScript)
-    {
+    public bool CanAttack(PlayerScript playerScript) {
         return this._attackCooldown <= 0;
     }
 
-    public bool HasBeenHitByWeapon()
-    {
+    public bool HasBeenHitByWeapon() {
         return hasBeenHit;
     }
 
-    public void RegisterHitByWeapon()
-    {
+    public void RegisterHitByWeapon() {
         hasBeenHit = true;
     }
 }

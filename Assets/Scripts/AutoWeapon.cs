@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoWeapon : MonoBehaviour
-{
+public class AutoWeapon : MonoBehaviour {
     public GameObject projectilePrefab; // Prefab of the projectile to be fired
     public float fireRate = 0.5f; // Time delay between each projectile fire
     public float projectileSpeed = 10f; // Speed of the projectile
@@ -11,21 +10,18 @@ public class AutoWeapon : MonoBehaviour
     private float fireTimer = 0f; // Timer to track the time between each fire
     private PlayerAttack attack;
 
-    private void Update()
-    {
+    private void Update() {
         // Update the fire timer
         fireTimer += Time.deltaTime;
 
         // Check if it's time to fire
-        if (fireTimer >= fireRate)
-        {
+        if (fireTimer >= fireRate) {
             FireProjectile();
             fireTimer = 0f; // Reset the fire timer
         }
     }
 
-    private void FireProjectile()
-    {
+    private void FireProjectile() {
         // Instantiate the projectile prefab at the current position and rotation of the player
         GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
 

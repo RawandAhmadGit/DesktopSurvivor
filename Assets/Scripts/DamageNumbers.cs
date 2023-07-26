@@ -2,19 +2,16 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class DamageNumbers : MonoBehaviour
-{
+public class DamageNumbers : MonoBehaviour {
     public TextMeshPro damageText; // Reference to the TextMeshPro component for displaying the damage
     public float displayDuration = 1f; // Duration for which the damage popup is displayed
 
-    private void Start()
-    {
+    private void Start() {
         // Deactivate the damage popup GameObject on start
         gameObject.SetActive(true);
     }
 
-    public void ShowDamage(float damage)
-    {
+    public void ShowDamage(float damage) {
         // Set the damage text to the provided damage value
         damageText.text = damage.ToString();
 
@@ -25,8 +22,7 @@ public class DamageNumbers : MonoBehaviour
         StartCoroutine(HideDamage());
     }
 
-    private IEnumerator HideDamage()
-    {
+    private IEnumerator HideDamage() {
         // Wait for the display duration
         yield return new WaitForSeconds(displayDuration);
 

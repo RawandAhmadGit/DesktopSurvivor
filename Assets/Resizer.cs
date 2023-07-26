@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resizer : MonoBehaviour
-{
+public class Resizer : MonoBehaviour {
     private PlayerAttack playerAttack;
     private Vector3 speed;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         playerAttack = GetComponent<PlayerAttack>();
         float direction = (float)playerAttack.burstPjtlNr / (float)playerAttack.burstTotalPjtl;
         direction *= 2 * Mathf.PI;
@@ -20,8 +18,7 @@ public class Resizer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         transform.Translate(speed * Time.deltaTime);
     }
 }
