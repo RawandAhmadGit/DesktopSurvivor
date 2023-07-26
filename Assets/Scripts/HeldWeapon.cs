@@ -14,7 +14,7 @@ internal class HeldWeapon
     {
         wData = tupel;
         this.holder = holder;
-        remainingCooldown = 1;
+        remainingCooldown = 0;
         this.Prefab = Prefab;
     }
 
@@ -40,7 +40,7 @@ internal class HeldWeapon
             UnityEngine.GameObject newObject = UnityEngine.GameObject.Instantiate(Prefab, holder.transform.position, Quaternion.identity);
             PlayerAttack newAttack = newObject.GetComponent<PlayerAttack>();
             newAttack.wData = this.wData;
-            newAttack.burstPjtlNr = i+1;
+            newAttack.burstPjtlNr = i;
             newAttack.burstTotalPjtl = burstTotal;
         }
         return;
