@@ -160,9 +160,6 @@ public class GenericEnemy : MonoBehaviour
     private void TakeKnockback(float incomingKnockback)
     {
         Vector2 knockbackDirection = (transform.position - thePlayer.transform.position).normalized;
-
-        // Apply the knockback force
-        //BERNI ZEIGEN
         transform.Translate((Vector3)knockbackDirection * incomingKnockback * _knockbackMultiplier);
     }
 

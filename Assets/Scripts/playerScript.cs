@@ -24,10 +24,10 @@ public class PlayerScript : MonoBehaviour
     private float debuffMoveSpeedMultiplier = 1f;
     private float knockbackMultiplier = 1;
     private float moveSpeedStatMultiplier = 1f;
-    public float projectilecountModifier = 0;
+    public int projectilecountModifier = 0;
     private float projectiledurationModifier = 1;
     private float projectilesizeModifier = 1;
-    private float projectilespeedModifier = 1;
+    public float projectilespeedModifier = 1;
     private List<HeldWeapon> heldWeapons = new();
     public GameObject prefab_LEVEL_UP;
     public UnityEngine.GameObject prefab_CDROM;
@@ -50,7 +50,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        GainWeapon(weapontype.CDRom);
+        GainWeapon(weapontype.LoadingIcon);
         playerDeath.AddListener(Die);
     }
 

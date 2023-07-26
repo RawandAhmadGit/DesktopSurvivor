@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private PlayerScript player; // Reference to the playerScript
+    public PlayerScript player; // Reference to the playerScript
     public WeaponStatsTupel wData;
-    private float projectileDuration;
+    public float totalDuration;
     public float currentDuration = 0f;
     public List<GenericEnemy> hitEnemies;
     public List<GenericEnemy> registerBuffer;
     public int remainingHits;
+    public int burstPjtlNr;
+    public int burstTotalPjtl;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
         {
             remainingHits = int.MaxValue;
         }
-        projectileDuration = wData.maxDuration;
+        totalDuration = wData.maxDuration;
     }
 
     private void FixedUpdate()
@@ -37,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
         currentDuration += Time.deltaTime;
 
         // Check if the projectile exceeds the maximum duration
-        if (currentDuration >= projectileDuration)
+        if (currentDuration >= totalDuration)
         {
             Destroy(gameObject);
         }

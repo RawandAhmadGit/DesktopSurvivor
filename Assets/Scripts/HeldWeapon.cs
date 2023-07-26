@@ -33,11 +33,15 @@ internal class HeldWeapon
 
     private void Fire()
     {
-        for (int i = 0; i<wData.projectileCount + holder.projectilecountModifier; i++)
+        int burstTotal = wData.projectileCount + holder.projectilecountModifier;
+        for (int i = 0; i<burstTotal; i++)
         {
 
             UnityEngine.GameObject newObject = UnityEngine.GameObject.Instantiate(Prefab, holder.transform.position, Quaternion.identity);
-            newObject.GetComponent<PlayerAttack>().wData = this.wData;
+            PlayerAttack newAttack = newObject.GetComponent<PlayerAttack>();
+            newAttack.wData = this.wData;
+            newAttack.burstPjtlNr = i+1;
+            newAttack.burstTotalPjtl = burstTotal;
         }
         return;
     }
