@@ -38,6 +38,17 @@ public class PlayerScript : MonoBehaviour
 
     public UnityEvent playerDeath;
 
+    private void cheats()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) GainWeapon(weapontype.MousePointer);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) GainWeapon(weapontype.CDRom);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) GainWeapon(weapontype.Resizer);
+            if (Input.GetKeyDown(KeyCode.Alpha4)) GainWeapon(weapontype.LoadingIcon);
+            if (Input.GetKeyDown(KeyCode.Alpha5)) GainWeapon(weapontype.FireWall);
+        }
+    }
 
     private float EffectiveSpeed()
     {
@@ -57,6 +68,9 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
+        cheats();
+#endif
         Vector2 _frameAccel;
         _frameAccel = Vector2.zero;
 
