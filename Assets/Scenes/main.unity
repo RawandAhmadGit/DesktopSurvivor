@@ -176,6 +176,10 @@ MonoBehaviour:
   projectilecountModifier: 0
   prefab_LEVEL_UP: {fileID: 7584387625902084568, guid: 2ca7872d980dccf44a3d3f67b58ac98e, type: 3}
   prefab_CDROM: {fileID: 221821331815197169, guid: b59cfb27c388d314f9e94dbd9ca88c2c, type: 3}
+  prefab_Firewall: {fileID: 221821331815197169, guid: ffab18b3dbb32634881cf180ae9f3023, type: 3}
+  prefab_Loading_Icon: {fileID: 0}
+  prefab_Resizer: {fileID: 0}
+  prefab_mousePointer: {fileID: 0}
   playerDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -220,7 +224,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 40c8bf5786027d04484507a8adee1748, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fc209e1b7ff4ae4694c270727069864, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

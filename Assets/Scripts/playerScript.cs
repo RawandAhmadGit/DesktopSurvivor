@@ -50,7 +50,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        GainWeapon(weapontype.FireWall);
+        GainWeapon(weapontype.CDRom);
         playerDeath.AddListener(Die);
     }
 
@@ -182,7 +182,7 @@ public class PlayerScript : MonoBehaviour
         moveSpeedStatMultiplier = 0;
         for (int i = 0; i < 100; i++)
         {
-            Instantiate(prefab_CDROM,transform.position,quaternion.identity);
+            Instantiate(prefab_LEVEL_UP,transform.position,quaternion.identity);
         }
     }
 }

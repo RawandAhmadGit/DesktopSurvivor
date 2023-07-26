@@ -34,7 +34,7 @@ public class MapLogic : MonoBehaviour
             mapTime += Time.deltaTime;
             if (timeUntilNextSpawn <=  0)
             {
-                timeUntilNextSpawn = 4f;
+                timeUntilNextSpawn = 2f;
                 const float spawnRadius = 10;
                 Vector3 newEnemyPos = ((Quaternion.AngleAxis(Random.Range(0,360),Vector3.forward) * Vector3.up) * spawnRadius) + thePlayer.transform.position;
                 GameObject newestEnemy = Instantiate(toBeSpawned, newEnemyPos, Quaternion.identity);
