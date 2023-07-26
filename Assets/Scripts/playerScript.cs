@@ -31,6 +31,10 @@ public class PlayerScript : MonoBehaviour
     private List<HeldWeapon> heldWeapons = new();
     public GameObject prefab_LEVEL_UP;
     public UnityEngine.GameObject prefab_CDROM;
+    public GameObject prefab_Firewall;
+    public GameObject prefab_Loading_Icon;
+    public GameObject prefab_Resizer;
+    public GameObject prefab_mousePointer;
 
     public UnityEvent playerDeath;
 
@@ -46,7 +50,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        GainWeapon(weapontype.CDRom);
+        GainWeapon(weapontype.FireWall);
         playerDeath.AddListener(Die);
     }
 
@@ -162,7 +166,11 @@ public class PlayerScript : MonoBehaviour
     {
         switch (type)
         {
-            case weapontype.CDRom: return prefab_CDROM;
+            case weapontype.CDRom:          return prefab_CDROM;
+            case weapontype.FireWall:       return prefab_Firewall;
+            case weapontype.LoadingIcon:    return prefab_Loading_Icon;
+            case weapontype.MousePointer:   return prefab_mousePointer;
+            case weapontype.Resizer:        return prefab_Resizer;
         }
         return null;
     }
@@ -172,5 +180,9 @@ public class PlayerScript : MonoBehaviour
         heldWeapons.Clear();
         isDead = true;
         moveSpeedStatMultiplier = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            Instantiate(prefab_CDROM,transform.position,quaternion.identity);
+        }
     }
 }

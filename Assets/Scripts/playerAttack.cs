@@ -16,6 +16,10 @@ public class PlayerAttack : MonoBehaviour
     {
         // Get the playerScript component from the player object
         remainingHits = wData.maxTargets;
+        if (remainingHits == 0)
+        {
+            remainingHits = int.MaxValue;
+        }
         projectileDuration = wData.maxDuration;
     }
 
