@@ -179,8 +179,8 @@ MonoBehaviour:
   prefab_CDROM: {fileID: 221821331815197169, guid: b59cfb27c388d314f9e94dbd9ca88c2c, type: 3}
   prefab_Firewall: {fileID: 221821331815197169, guid: ffab18b3dbb32634881cf180ae9f3023, type: 3}
   prefab_Loading_Icon: {fileID: 221821331815197169, guid: b600af959fc50374f81e11b69856203b, type: 3}
-  prefab_Resizer: {fileID: 0}
-  prefab_mousePointer: {fileID: 0}
+  prefab_Resizer: {fileID: 221821331815197169, guid: 01b892dc9908de54fb24125a91191a9e, type: 3}
+  prefab_mousePointer: {fileID: 221821331815197169, guid: 410825649d0380d488628623c0fc15bd, type: 3}
   playerDeath:
     m_PersistentCalls:
       m_Calls: []

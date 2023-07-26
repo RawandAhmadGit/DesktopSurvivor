@@ -49,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the collided object is an enemy
         GenericEnemy enemy = collision.gameObject.GetComponent<GenericEnemy>();
@@ -76,5 +76,24 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void Unregister(GenericEnemy t)
+    {
+        int foundI = -1;
+        for (int i = 0; i < hitEnemies.Count; ++i)
+        {
+            {
+                if (hitEnemies[i] == t)
+                {
+                    foundI = i; break;
+                }
+            }
+        }
+        if (foundI != -1)
+        {
+            hitEnemies.RemoveAt(foundI);
+        }
+        return;
     }
 }
