@@ -13,6 +13,10 @@ public class PlayerAttack : MonoBehaviour {
     public int burstPjtlNr;
     public int burstTotalPjtl;
 
+    private void Awake() {
+        player = GameObject.FindObjectOfType<PlayerScript>();
+    }
+
     private void Start() {
         // Get the playerScript component from the player object
         remainingHits = wData.maxTargets;

@@ -36,7 +36,7 @@ public class PlayerScript : MonoBehaviour {
     public GameObject prefab_mousePointer;
 
     public UnityEvent playerDeath;
-
+#if UNITY_EDITOR
     private void cheats() {
         if (Input.GetKey(KeyCode.LeftShift)) {
             if (Input.GetKeyDown(KeyCode.Alpha1)) GainWeapon(weapontype.MousePointer);
@@ -46,7 +46,7 @@ public class PlayerScript : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha5)) GainWeapon(weapontype.FireWall);
         }
     }
-
+#endif
     private float EffectiveSpeed() {
         return math.max(baseMoveSpeed * moveSpeedStatMultiplier * debuffMoveSpeedMultiplier, minimumSpeed);
     }
@@ -123,11 +123,11 @@ public class PlayerScript : MonoBehaviour {
 
     internal void GetXp(float expYield) {
         this.xp += (int)expYield;
-        while (xp >= xpNeeded()) {
+        while ( xp >= xpNeeded()) {
             xp -= xpNeeded();
             level++;
             Instantiate(prefab_LEVEL_UP, transform.position, quaternion.identity);
-            GainWeapon(weapontype.CDRom);
+            GainWeapon(weapontype.CDRom); //TODO Level up menu
         }
     }
 
