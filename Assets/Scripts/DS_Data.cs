@@ -15,6 +15,19 @@ public class EnemyStatTupel {
     public float knockback;
 }
 
+public enum StatType {
+    undefined,
+    damage,
+    attackSpeed,
+    projectileSpeed,
+    projectileCount,
+    projectileDuration,
+    projectileSize,
+    armor,
+    hp,
+    healthRegen
+}
+
 public class DS_Data {
     private static DS_Data _instance;
     private static DS_Data GetInstance() {

@@ -34,6 +34,7 @@ public class PlayerScript : MonoBehaviour {
     public GameObject prefab_Loading_Icon;
     public GameObject prefab_Resizer;
     public GameObject prefab_mousePointer;
+    public UnityEvent LevelUpEvent;
 
     public UnityEvent playerDeath;
 #if UNITY_EDITOR
@@ -127,7 +128,8 @@ public class PlayerScript : MonoBehaviour {
             xp -= xpNeeded();
             level++;
             Instantiate(prefab_LEVEL_UP, transform.position, quaternion.identity);
-            GainWeapon(weapontype.CDRom); //TODO Level up menu
+            //GainWeapon(weapontype.CDRom); //TODO Level up menu
+            LevelUpEvent.Invoke();
         }
     }
 
